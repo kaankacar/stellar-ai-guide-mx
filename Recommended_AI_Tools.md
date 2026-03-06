@@ -13,6 +13,7 @@ Start here. These are unique to the Stellar ecosystem.
 | **Stella** | Official AI bot for Stellar dev questions (beta) | https://developers.stellar.org/docs/tools/developer-tools/ai-bot (yellow chat icon on docs site); also `#stella-help` on Discord |
 | **llms.txt** | Machine-readable Stellar docs digest designed for feeding into LLMs | https://developers.stellar.org/llms.txt (covers Build, Learn, Tokens, Data, Tools, Networks, Validators) |
 | **stellar-dev skill** | Claude Code skill (Jan 2026 playbook) covering Soroban, SDKs, RPC, wallet integration, passkeys, and security patterns | Invoke with `stellar-dev:stellar-dev` in Claude Code; repo: https://github.com/stellar/stellar-dev-skill |
+| **OpenZeppelin skills** | Claude Code skills for secure Stellar contract development: `setup-stellar-contracts`, `upgrade-stellar-contracts`, and `develop-secure-contracts`. Installs optional MCP servers for AI-assisted contract generation. | Install: `/plugin marketplace add OpenZeppelin/openzeppelin-skills` in Claude Code; repo: https://github.com/OpenZeppelin/openzeppelin-skills |
 | **Stellar MCP Server** (kalepail) | MCP server running on Cloudflare Workers; exposes Stellar wallet, token, and contract tools to Claude and other AI clients | https://github.com/kalepail/stellar-mcp-server |
 | **XDR MCP** (leighmcculloch) | MCP server that decodes and encodes Stellar XDR to/from JSON for AI agents | https://github.com/leighmcculloch/mcp-stellar-xdr |
 | **x402** | Per-request HTTP payment protocol for AI agents, powered by Soroban auth entry signing | https://developers.stellar.org/docs/build/apps/x402 |
@@ -23,8 +24,19 @@ x402 repurposes the HTTP 402 Payment Required status into a real payment mechani
 
 - **How it works:** Client hits a paywalled endpoint, receives a 402 with payment instructions, signs a Soroban auth entry, and retries with the payment header.
 - **Supported wallets:** Freighter, Albedo, Hana, HOT, Klever, OneKey
-- **Facilitator:** OpenZeppelin Relayer plugin (testnet + mainnet)
+- **Facilitator:** OpenZeppelin Relayer plugin (testnet + mainnet); see OpenZeppelin on Stellar below
 - **Live demo:** https://x402-stellar-491bf9f7e30b.herokuapp.com/
+
+### OpenZeppelin on Stellar
+
+OpenZeppelin's full platform for building and securing Stellar smart contracts: https://www.openzeppelin.com/networks/stellar
+
+- **Stellar Contracts Library:** Audited, reusable Soroban components for asset issuance, stablecoins, and DeFi (the Stellar equivalent of OZ's battle-tested Ethereum libraries)
+- **Contracts Wizard:** Visual configurator that generates audited Soroban contract code instantly, no boilerplate
+- **Contracts MCP:** MCP server at https://mcp.openzeppelin.com/ -- gives AI agents direct access to OZ contract generation tools; auto-installed with the Claude Code plugin above
+- **Relayer:** Simplifies backend transaction flow for anchors and apps (this is the facilitator used by x402 above)
+- **Monitor:** Real-time anomaly detection and automated responses for deployed contracts
+- **Soroban Security Detectors SDK:** Static analysis with prebuilt vulnerability checks for Soroban contracts
 
 ---
 
