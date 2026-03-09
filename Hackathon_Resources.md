@@ -27,10 +27,10 @@ Everything you need before writing a line of code.
 
 ### Things Worth Knowing Upfront
 
-- Testnet USDC has two different issuers depending on which protocol you're using -- they don't share liquidity. Check which one your protocol expects before swapping.
+- Testnet USDC has two different issuers depending on which protocol you're using; they don't share liquidity. Check which one your protocol expects before swapping.
 - Etherfuse: your `customer_id` is permanent. Generate it once, store it, reuse it.
 - Stellar memos max out at 28 bytes. Anything longer silently fails.
-- SDK v14 renamed several core types -- if copying older examples, check the migration notes.
+- SDK v14 renamed several core types. If copying older examples, check the migration notes.
 
 ### Deeper Reference
 
@@ -49,7 +49,7 @@ The fastest path to a working integration with Mexican peso rails.
 
 **Repo:** https://github.com/ElliotFriend/regional-starter-pack
 
-A SvelteKit app paired with a portable TypeScript anchor library containing three anchor integrations. The key insight: `/src/lib/anchors/` is framework-agnostic -- copy it into any TypeScript or Node project and it works without the SvelteKit wrapper.
+A SvelteKit app paired with a portable TypeScript anchor library containing three anchor integrations. The key insight: `/src/lib/anchors/` is framework-agnostic; copy it into any TypeScript or Node project and it works without the SvelteKit wrapper.
 
 ### Anchor Providers Included
 
@@ -75,7 +75,7 @@ Includes pre-configured MCP servers for Claude Code (Svelte docs + Etherfuse doc
 
 Full mainnet DeFi dashboard: https://github.com/kaankacar/stellar-defi-app
 
-Integrates Blend, Soroswap, Phoenix, Aquarius, SDEX, and Reflector Oracle in a single working application. The most useful thing about this repo is seeing how all the protocols compose -- what the actual API calls look like, what the response shapes are, and how to wire health factors and price feeds together.
+Integrates Blend, Soroswap, Phoenix, Aquarius, SDEX, and Reflector Oracle in a single working application. The most useful thing about this repo is seeing how all the protocols compose: what the actual API calls look like, what the response shapes are, and how to wire health factors and price feeds together.
 
 | Protocol | What it does |
 |---|---|

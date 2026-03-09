@@ -26,6 +26,8 @@ x402 repurposes the HTTP 402 Payment Required status into a real payment mechani
 - **Supported wallets:** Freighter, Albedo, Hana, HOT, Klever, OneKey
 - **Facilitator:** OpenZeppelin Relayer plugin (testnet + mainnet); see OpenZeppelin on Stellar below
 - **Live demo:** https://x402-stellar-491bf9f7e30b.herokuapp.com/
+- **Official monorepo:** https://github.com/stellar/x402-stellar (facilitator service, simple-paywall demo in Express + React, Heroku deployment config, high-throughput channel account setup)
+- **Community demo** (jamesbachini): https://github.com/jamesbachini/x402-Stellar-Demo (minimal local demo showing payer client + protected Express server + local facilitator; good for understanding the flow end-to-end)
 
 ### OpenZeppelin on Stellar
 
@@ -33,7 +35,7 @@ OpenZeppelin's full platform for building and securing Stellar smart contracts: 
 
 - **Stellar Contracts Library:** Audited, reusable Soroban components for asset issuance, stablecoins, and DeFi (the Stellar equivalent of OZ's battle-tested Ethereum libraries)
 - **Contracts Wizard:** Visual configurator that generates audited Soroban contract code instantly, no boilerplate
-- **Contracts MCP:** MCP server at https://mcp.openzeppelin.com/ -- gives AI agents direct access to OZ contract generation tools; auto-installed with the Claude Code plugin above
+- **Contracts MCP:** MCP server at https://mcp.openzeppelin.com/ (gives AI agents direct access to OZ contract generation tools; auto-installed with the Claude Code plugin above)
 - **Relayer:** Simplifies backend transaction flow for anchors and apps (this is the facilitator used by x402 above)
 - **Monitor:** Real-time anomaly detection and automated responses for deployed contracts
 - **Soroban Security Detectors SDK:** Static analysis with prebuilt vulnerability checks for Soroban contracts

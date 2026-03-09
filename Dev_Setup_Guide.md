@@ -1,12 +1,12 @@
 # Dev Setup Guide
 
-> Get everything in this file sorted BEFORE writing code. API keys, testnet addresses, auth patterns, and critical gotchas -- all in one place.
+> Get everything in this file sorted BEFORE writing code. API keys, testnet addresses, auth patterns, and critical gotchas, all in one place.
 
 ---
 
 ## Section 1: API Keys and Credentials
 
-**Get these before the hackathon.** DeFindex and Etherfuse have no self-service portal -- you have to contact the team. Budget 24-48h for responses.
+**Get these before the hackathon.** DeFindex and Etherfuse have no self-service portal. You have to contact the team. Budget 24-48h for responses.
 
 | Protocol | Key Required | How to Get | Wait | Contact |
 |---|---|---|---|---|
@@ -27,20 +27,20 @@
 - **Sandbox base URL:** `https://api.sand.etherfuse.com`
 - **Production base URL:** `https://api.etherfuse.com`
 - **Validate your key:** `GET /ramp/me` returns org name + KYB timestamp
-- **Auth header:** `Authorization: your-api-key` -- NO "Bearer" prefix (see Section 4)
+- **Auth header:** `Authorization: your-api-key` with no "Bearer" prefix (see Section 4)
 - **customer_id:** UUID you generate yourself, store permanently, reuse forever (see Section 5)
-- **bankAccountId:** same pattern -- you assign it, Etherfuse binds it on first use
+- **bankAccountId:** same pattern: you assign it, Etherfuse binds it on first use
 - Sandbox auto-approves bank accounts; production requires KYB review
 
 ### DeFindex
 
 - **SDK env var:** `DEFINDEX_API_KEY`
-- **Auth:** `Authorization: Bearer your-api-key` -- standard Bearer, opposite of Etherfuse
+- **Auth:** `Authorization: Bearer your-api-key` (standard Bearer, opposite of Etherfuse)
 - No docs page for self-service signup (returns 404); Discord is the only path
 
 > [TEAM: Add self-service API key generation or at least a signup form for DeFindex.]
 
-**Flagged empty -- team to fill:**
+**Not yet documented (ask DevRel):**
 - BlindPay sandbox access process
 - AlfredPay sandbox access process
 - Reflector Oracle auth requirements
@@ -49,7 +49,7 @@
 
 ## Section 2: Testnet Contract Addresses
 
-These are the actual deployed addresses on Stellar testnet. Testnet contracts get redeployed periodically -- if something stops working, check the protocol's GitHub for updated addresses.
+These are the actual deployed addresses on Stellar testnet. Testnet contracts get redeployed periodically. If something stops working, check the protocol's GitHub for updated addresses.
 
 ### Stellar Testnet Infrastructure
 
@@ -71,7 +71,7 @@ Verified from paltalabs registry, DevRel experiment Run 2.
 | USDC vault | `CBMVK2JK6NTOT2O4HNQAIQFJY232BHKGLIMXDVQVHIIZKDACXDFZDWHN` | Yes |
 | XLM vault | `CCLV4H7WTLJQ7ATLHBBQV2WW3OINF3FOY5XZ7VPHZO7NH3D2ZS4GFSF6` | Yes |
 
-**Verification note:** Run 1 (wrong addresses) got `Error(Storage, MissingValue)`. Run 2 (paltalabs addresses above) got `Error(WasmVm, InvalidAction)` -- meaning the contract IS deployed and running; the error was a call-level issue, not an address issue.
+**Verification note:** Run 1 (wrong addresses) got `Error(Storage, MissingValue)`. Run 2 (paltalabs addresses above) got `Error(WasmVm, InvalidAction)`, meaning the contract IS deployed and running; the error was a call-level issue, not an address issue.
 
 ---
 
@@ -128,7 +128,7 @@ Verified from paltalabs registry, DevRel experiment Run 2.
 
 ---
 
-> [TEAM: Maintain a single JSON file in a public repo with all verified testnet addresses across all protocols. Missing or wrong addresses were the #1 time sink in hackathon Run 1 -- participants spent 90+ minutes discovering the addresses before writing a single line of business logic.]
+> [TEAM: Maintain a single JSON file in a public repo with all verified testnet addresses across all protocols. Missing or wrong addresses were the #1 time sink in hackathon Run 1; participants spent 90+ minutes discovering the addresses before writing a single line of business logic.]
 
 ---
 
@@ -210,7 +210,7 @@ These are the issues that blocked developers for 30-120 minutes each across 60 b
 
 ### Etherfuse: customer_id is permanent
 
-Generate exactly once per user, store in your database, reuse forever. If you generate a new UUID per request, you'll get "Bank account not found" errors with no useful debug info. Both `customer_id` and `bankAccountId` follow this pattern -- you assign them, Etherfuse binds them on first use.
+Generate exactly once per user, store in your database, reuse forever. If you generate a new UUID per request, you'll get "Bank account not found" errors with no useful debug info. Both `customer_id` and `bankAccountId` follow this pattern: you assign them, Etherfuse binds them on first use.
 
 ---
 
@@ -237,15 +237,15 @@ const id = data.orderId || data.id || data.order_id;
 Orders don't progress automatically in sandbox. You must trigger state transitions yourself:
 
 ```
-POST /ramp/order/fiat_received    -- simulate fiat arriving (onramp)
-POST /ramp/order/crypto_received  -- simulate crypto arriving (offramp)
+POST /ramp/order/fiat_received    # simulate fiat arriving (onramp)
+POST /ramp/order/crypto_received  # simulate crypto arriving (offramp)
 ```
 
 ---
 
 ### Etherfuse: 3-10 second indexing delay
 
-After creating an order, wait 3-10 seconds before querying its status. Immediate queries return 404. This is not an error -- the order is being indexed.
+After creating an order, wait 3-10 seconds before querying its status. Immediate queries return 404. This is not an error; the order is being indexed.
 
 ---
 
@@ -278,13 +278,13 @@ throw new Error('Transaction timeout after 60s');
 
 ### DeFindex: XLM must be SAC-wrapped
 
-Native XLM cannot be deposited directly into DeFindex vaults. It must be wrapped as a Stellar Asset Contract (SAC) token first -- an additional contract call before the deposit. This requirement appears nowhere in the docs.
+Native XLM cannot be deposited directly into DeFindex vaults. It must be wrapped as a Stellar Asset Contract (SAC) token first, which requires an additional contract call before the deposit. This requirement appears nowhere in the docs.
 
 ---
 
 ### DeFindex: API quirks
 
-- Endpoint is `/vault/` not `/vaults/` -- 404 if you use the plural
+- Endpoint is `/vault/` not `/vaults/` (returns 404 if you use the plural)
 - Query param is `?from=<address>` not `?user=<address>`
 - Amount format is always an array: `{"amounts": [1000000]}` not `{"amount": 1000000}`
 - Success response is HTTP 201, not 200
@@ -307,26 +307,26 @@ const memo = uuid.replace(/-/g, '').slice(0, 28);
 
 ---
 
-## Section 6: Known Limitations -- Ask Your DevRel Mentor
+## Section 6: Known Limitations, and What to Ask Your DevRel Mentor
 
-These are things that don't work smoothly yet or aren't documented. If you hit any of them during the hackathon, don't spin your wheels -- ask a DevRel mentor directly. They can unblock you faster than debugging alone.
+These are things that don't work smoothly yet or aren't documented. If you hit any of them during the hackathon, don't spin your wheels. Ask a DevRel mentor directly. They can unblock you faster than debugging alone.
 
 ### Things that aren't available yet (ask for help)
 
-- **Etherfuse sandbox key** -- no self-service signup exists yet. If you haven't gotten a key before the hackathon starts, find a DevRel mentor immediately. Don't wait for email -- they can often provision one on the spot.
-- **DeFindex API key** -- same situation. No self-service path. If you need one during the event, ask DevRel.
-- **Testnet CETES balance** -- there's no faucet for stablebond assets on testnet. You can test trustlines but not actual buy/sell flows. Ask your mentor if there's a funded test account available for the event.
-- **Unified testnet address list** -- no single canonical source exists for all protocol contract addresses. The TBD rows in Section 2 of this file are genuinely unknown at time of writing. Ask DevRel for the latest before assuming an address is correct.
+- **Etherfuse sandbox key:** no self-service signup exists yet. If you haven't gotten a key before the hackathon starts, find a DevRel mentor immediately. Don't wait for email; they can often provision one on the spot.
+- **DeFindex API key:** same situation. No self-service path. If you need one during the event, ask DevRel.
+- **Testnet CETES balance:** there's no faucet for stablebond assets on testnet. You can test trustlines but not actual buy/sell flows. Ask your mentor if there's a funded test account available for the event.
+- **Unified testnet address list:** no single canonical source exists for all protocol contract addresses. The TBD rows in Section 2 of this file are genuinely unknown at time of writing. Ask DevRel for the latest before assuming an address is correct.
 
 ### Things the docs don't cover (save yourself the debugging time)
 
-- **DeFindex: XLM SAC wrapping** -- required before vault deposits, not mentioned anywhere in the docs. See Section 5.
-- **DeFindex: rate limits** -- undocumented. If you're getting throttled, ask a mentor what the current limits are.
-- **DeFindex: webhook retry policy** -- undocumented. If you need reliable webhook delivery for your project, ask before building around it.
-- **Etherfuse: quote expiration** -- quotes expire after ~2 minutes. Not documented prominently. Design your flow accordingly.
+- **DeFindex: XLM SAC wrapping:** required before vault deposits, not mentioned anywhere in the docs. See Section 5.
+- **DeFindex: rate limits:** undocumented. If you're getting throttled, ask a mentor what the current limits are.
+- **DeFindex: webhook retry policy:** undocumented. If you need reliable webhook delivery for your project, ask before building around it.
+- **Etherfuse: quote expiration:** quotes expire after ~2 minutes. Not documented prominently. Design your flow accordingly.
 
 ### Known API quirks (not bugs you can fix, just reality)
 
-- **Etherfuse response envelope inconsistency** -- `orderId` vs `order_id` vs `id` varies by endpoint; onramp/offramp responses are wrapped differently. The normalizer in Section 5 handles this.
-- **Phoenix rate limiting returns 403** -- looks like an auth error but it's actually a rate limit. If you get a sudden 403 from Phoenix after things were working, wait and retry.
-- **Stellar Wallets Kit v1 vs v2** -- breaking change between versions: instance methods became static methods. If you're copying examples from the web and they don't work, check which version you're running.
+- **Etherfuse response envelope inconsistency:** `orderId` vs `order_id` vs `id` varies by endpoint; onramp/offramp responses are wrapped differently. The normalizer in Section 5 handles this.
+- **Phoenix rate limiting returns 403:** looks like an auth error but it's actually a rate limit. If you get a sudden 403 from Phoenix after things were working, wait and retry.
+- **Stellar Wallets Kit v1 vs v2:** breaking change between versions where instance methods became static methods. If you're copying examples from the web and they don't work, check which version you're running.

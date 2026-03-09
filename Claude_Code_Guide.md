@@ -8,7 +8,7 @@ A practical reference for using Claude Code effectively during the hackathon: ke
 
 ### Plan Mode
 
-Activate with `/plan` or `Shift+Tab`. Claude reasons through the problem before taking any action -- no code written, no files touched, just thinking. Use it for any task larger than a one-liner: new features, refactors, multi-file changes.
+Activate with `/plan` or `Shift+Tab`. Claude reasons through the problem before taking any action: no code written, no files touched, just thinking. Use it for any task larger than a one-liner: new features, refactors, multi-file changes.
 
 In plan mode, Claude produces a numbered plan you can review and edit before confirming. Once you approve, it executes. This catches misunderstandings before they become wasted work.
 
@@ -40,7 +40,7 @@ What to include:
 
 | Command | What it does |
 |---|---|
-| `/plan` | Enter plan mode -- Claude reasons before acting |
+| `/plan` | Enter plan mode: Claude reasons before acting |
 | `/clear` | Clear conversation history, start fresh |
 | `/compact` | Compress conversation to save context (keeps working memory, drops verbosity) |
 | `/memory` | View and edit Claude's persistent memory |
@@ -143,6 +143,6 @@ From the Build on Stellar channel and Kaan Kacar (Senior Developer Advocate at S
 | Title | Description | Link |
 |---|---|---|
 | **Scoping and Evaluating Your Project** | How to evaluate and validate your idea before building. A must-watch before writing any code. | https://x.com/BuildOnStellar/status/2029288908639666402 |
-| **A First Look: Nethermind's SPP** | Stellar Private Payments -- ZK-based privacy layer on Stellar | https://x.com/i/broadcasts/1pKkOyOyOnwKj |
+| **A First Look: Nethermind's SPP** | Stellar Private Payments (ZK-based privacy layer on Stellar) | https://x.com/i/broadcasts/1pKkOyOyOnwKj |
 | **Vibe Coding 5 ZK Games in 90 Minutes** | Live demo using 5 different AI models to build 5 ZK games in 90 minutes | https://x.com/i/broadcasts/1dRKZaYYbbdxB |
 | **The Builder's Guide to AI Prompt Engineering** | How to write better prompts for AI-assisted development | https://x.com/BuildOnStellar/status/2008902190090613013 |
