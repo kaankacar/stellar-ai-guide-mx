@@ -2,7 +2,6 @@
 
 A curated navigation guide for Stellar ecosystem resources, gotchas, starter code, and reference implementations. Organized by when and why you'd reach for each resource.
 
----
 
 ## 1. Environment and API Setup
 
@@ -41,7 +40,6 @@ Everything you need before writing a line of code. For the full reference (API k
 | **Arroz Wallet field report** (rice2000) | Full build log: Python/Flask wallet with Etherfuse on/off-ramp, 14 hours of real development | https://gist.github.com/rice2000/f5cba666112b4fa69afbc70891c47782 |
 | **DevRel Experiment** (kaankacar) | Controlled comparison of Claude Code with vs. without resources, including full test results | https://github.com/kaankacar/stellar-devrel-experiment |
 
----
 
 ## 2. Regional Starter Pack (Mexico + Latin America)
 
@@ -67,7 +65,6 @@ SEP-1, SEP-10, SEP-6, SEP-12, SEP-24, SEP-31, SEP-38
 
 Includes pre-configured MCP servers for Claude Code (Svelte docs + Etherfuse docs), so Claude understands the stack out of the box.
 
----
 
 ## 3. Reference Implementations
 
@@ -86,7 +83,6 @@ Integrates Blend, Soroswap, Phoenix, Aquarius, SDEX, and Reflector Oracle in a s
 | SDEX | Native Stellar DEX |
 | Reflector Oracle | On-chain USD price feeds |
 
----
 
 ## 4. Ecosystem Discovery
 
@@ -98,7 +94,6 @@ Integrates Blend, Soroswap, Phoenix, Aquarius, SDEX, and Reflector Oracle in a s
 
 **How to use the Ecosystem DB:** Find existing projects in your category to avoid reinventing the wheel, discover integration partners, check on-chain contract addresses.
 
----
 
 ## 5. Videos Worth Watching
 

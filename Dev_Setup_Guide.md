@@ -2,7 +2,6 @@
 
 > Get everything in this file sorted BEFORE writing code. API keys, testnet addresses, auth patterns, and critical gotchas, all in one place.
 
----
 
 ## Section 1: API Keys and Credentials
 
@@ -20,7 +19,6 @@
 | BlindPay | TBD | TBD | TBD | TBD |
 | AlfredPay | TBD | TBD | TBD | TBD |
 
----
 
 ### Etherfuse
 
@@ -43,7 +41,6 @@
 - AlfredPay sandbox access process
 - Reflector Oracle auth requirements
 
----
 
 ## Section 2: Testnet Contract Addresses
 
@@ -57,7 +54,6 @@ These are the actual deployed addresses on Stellar testnet. Testnet contracts ge
 | Horizon | `https://horizon-testnet.stellar.org` |
 | Friendbot | `https://friendbot.stellar.org` |
 
----
 
 ### DeFindex (testnet)
 
@@ -71,7 +67,6 @@ Verified from the paltalabs registry.
 
 **Verification note:** Run 1 (wrong addresses) got `Error(Storage, MissingValue)`. Run 2 (paltalabs addresses above) got `Error(WasmVm, InvalidAction)`, meaning the contract IS deployed and running; the error was a call-level issue, not an address issue.
 
----
 
 ### Soroswap (testnet)
 
@@ -82,7 +77,6 @@ Verified from the paltalabs registry.
 
 > Verified addresses will be added here as soon as they're confirmed.
 
----
 
 ### Phoenix (testnet)
 
@@ -93,7 +87,6 @@ Verified from the paltalabs registry.
 
 > Verified addresses will be added here as soon as they're confirmed.
 
----
 
 ### Blend (testnet)
 
@@ -104,7 +97,6 @@ Verified from the paltalabs registry.
 
 > Verified addresses will be added here as soon as they're confirmed.
 
----
 
 ### Aquarius (testnet)
 
@@ -114,7 +106,6 @@ Verified from the paltalabs registry.
 
 > Verified address will be added here as soon as it's confirmed.
 
----
 
 ### Reflector Oracle (testnet)
 
@@ -124,11 +115,9 @@ Verified from the paltalabs registry.
 
 > Verified address will be added here as soon as it's confirmed.
 
----
 
 > The TBD rows above will be filled in before the hackathon. If you're reading this and something is still missing, ask a mentor for the latest addresses rather than guessing.
 
----
 
 ## Section 3: Testnet Asset Registry
 
@@ -143,7 +132,6 @@ Verified from the paltalabs registry.
 
 **Rule:** Check which issuer your protocol expects. Do NOT assume USDC is USDC on testnet.
 
----
 
 ### Etherfuse Assets
 
@@ -162,7 +150,6 @@ Verified from the paltalabs registry.
 
 > A testnet faucet for stablebond assets is being worked on. For now, ask a mentor if a pre-funded test account is available at the event.
 
----
 
 ## Section 4: Authentication Patterns
 
@@ -198,19 +185,16 @@ headers: {
 
 **Horizon rate limiting note:** Streaming connections count against the 3,600 req/hour quota. If you're polling and streaming simultaneously, budget accordingly.
 
----
 
 ## Section 5: Critical Setup Gotchas
 
 These are the issues that blocked developers for 30-120 minutes each across 60 build runs. Know them upfront.
 
----
 
 ### Etherfuse: customer_id is permanent
 
 Generate exactly once per user, store in your database, reuse forever. If you generate a new UUID per request, you'll get "Bank account not found" errors with no useful debug info. Both `customer_id` and `bankAccountId` follow this pattern: you assign them, Etherfuse binds them on first use.
 
----
 
 ### Etherfuse: order response fields are inconsistent
 
@@ -228,7 +212,6 @@ const data = raw.onramp || raw.offramp || raw;
 const id = data.orderId || data.id || data.order_id;
 ```
 
----
 
 ### Etherfuse sandbox: simulate fiat manually
 
@@ -239,13 +222,11 @@ POST /ramp/order/fiat_received    # simulate fiat arriving (onramp)
 POST /ramp/order/crypto_received  # simulate crypto arriving (offramp)
 ```
 
----
 
 ### Etherfuse: 3-10 second indexing delay
 
 After creating an order, wait 3-10 seconds before querying its status. Immediate queries return 404. This is not an error; the order is being indexed.
 
----
 
 ### Soroban: always simulate before sending
 
@@ -257,7 +238,6 @@ await server.sendTransaction(assembled);
 
 Skipping simulation causes confusing failures. This is different from classic Stellar and easy to miss.
 
----
 
 ### sendTransaction returns PENDING, not success
 
@@ -272,13 +252,11 @@ for (let i = 0; i < 60; i++) {
 throw new Error('Transaction timeout after 60s');
 ```
 
----
 
 ### DeFindex: XLM must be SAC-wrapped
 
 Native XLM cannot be deposited directly into DeFindex vaults. It must be wrapped as a Stellar Asset Contract (SAC) token first, which requires an additional contract call before the deposit. This requirement appears nowhere in the docs.
 
----
 
 ### DeFindex: API quirks
 
@@ -287,13 +265,11 @@ Native XLM cannot be deposited directly into DeFindex vaults. It must be wrapped
 - Amount format is always an array: `{"amounts": [1000000]}` not `{"amount": 1000000}`
 - Success response is HTTP 201, not 200
 
----
 
 ### Trustlines before assets
 
 Establish trustlines before any operation that will receive an asset. Skipping this produces `op_no_destination` or a silent no-op.
 
----
 
 ### Stellar memo limit: 28 bytes
 
@@ -303,7 +279,6 @@ UUIDs are 36 characters. Strip dashes and truncate:
 const memo = uuid.replace(/-/g, '').slice(0, 28);
 ```
 
----
 
 ## Section 6: Known Limitations, and What to Ask Your DevRel Mentor
 

@@ -2,7 +2,6 @@
 
 A curated map of the AI tool ecosystem available during the hackathon. Covers Stellar-native integrations, coding assistants, and multi-agent frameworks. For local/open-source model setup, see `AI_Coding_Guide.md`.
 
----
 
 ## 1. Stellar-Native AI Tools
 
@@ -40,7 +39,6 @@ OpenZeppelin's full platform for building and securing Stellar smart contracts: 
 - **Monitor:** Real-time anomaly detection and automated responses for deployed contracts
 - **Soroban Security Detectors SDK:** Static analysis with prebuilt vulnerability checks for Soroban contracts
 
----
 
 ## 2. AI Coding Assistants
 
@@ -56,7 +54,6 @@ Tools for using AI while writing code. Most have generous free tiers.
 | **Jules** (Google) | 15 tasks/day | Autonomous GitHub-integrated coding agent (Gemini 2.5 Pro) | https://jules.google.com |
 | **GitHub Copilot** | 2,000 completions + 50 chats/mo | In-editor suggestions, integrates into VS Code | https://github.com/features/copilot |
 
----
 
 ## 3. Multi-Agent Orchestration Frameworks
 
@@ -69,7 +66,6 @@ For teams building AI-powered applications, not just using AI to write code, but
 | **AutoGen (AG2)** | Conversation-based multi-agent collaboration | https://github.com/ag2-ai/ag2 |
 | **OpenAI Agents SDK** | Production-grade, built-in tracing and agent handoffs | https://openai.github.io/openai-agents-python/ |
 
----
 
 ## 4. Rapid Prototyping and App Builders
 

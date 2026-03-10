@@ -4,7 +4,6 @@
 **Prepared for: SDF Hackathon, Mexico**
 **Date: March 2026**
 
----
 
 ## Table of Contents
 
@@ -15,7 +14,6 @@
 5. [Free AI Coding Alternatives](#free-alternatives)
 6. [About Stella: Stellar's AI Assistant](#stella)
 
----
 
 ## 1. Introduction
 
@@ -28,13 +26,11 @@ As a hacker at this event, you have several options when it comes to AI-powered 
 
 This guide focuses on helping you get set up with open-source models from Hugging Face (the world's largest platform for sharing and downloading AI models) so you can code with AI entirely for free.
 
----
 
 ## 2. Top Open-Source Coding Models on Hugging Face
 
 Hugging Face (https://huggingface.co) is the central hub for open-source AI models. Below are the best coding-focused models available, ranked by overall capability and ease of local deployment.
 
----
 
 ### Model 1: Qwen2.5-Coder (by Alibaba / Qwen Team)
 
@@ -80,7 +76,6 @@ ollama pull qwen2.5-coder:32b
 ollama run qwen2.5-coder:7b
 ```
 
----
 
 ### Model 2: DeepSeek-Coder-V2 (by DeepSeek AI)
 
@@ -118,7 +113,6 @@ ollama pull deepseek-coder-v2
 ollama run deepseek-coder-v2
 ```
 
----
 
 ### Model 3: Codestral (by Mistral AI)
 
@@ -153,7 +147,6 @@ ollama run codestral
 
 > Note: Codestral has a non-commercial license for local use. Check Mistral's license terms for commercial hackathon projects.
 
----
 
 ### Model 4: StarCoder2 (by BigCode / Hugging Face)
 
@@ -193,7 +186,6 @@ ollama pull starcoder2:7b
 ollama run starcoder2:7b
 ```
 
----
 
 ### Model 5: Llama 3.1 / 3.3 (by Meta)
 
@@ -236,7 +228,6 @@ ollama pull llama3.3:70b
 ollama run llama3.1:8b
 ```
 
----
 
 ### Model 6: Phi-4 (by Microsoft)
 
@@ -269,7 +260,6 @@ ollama pull phi4
 ollama run phi4
 ```
 
----
 
 ### Quick Comparison Summary
 
@@ -282,7 +272,6 @@ ollama run phi4
 | Llama 3.1 8B | 8B | General reasoning + coding, Claude Code | 10 GB |
 | Phi-4 | 14B | Low-end hardware, fast responses | 8 GB |
 
----
 
 ## 3. How to Use a Local Model with Claude Code
 
@@ -290,7 +279,6 @@ Claude Code is the AI coding assistant you can run in your terminal. By default 
 
 This works through **Ollama**, a tool that runs AI models locally and exposes them through an API that Claude Code can talk to.
 
----
 
 ### Step 1: Install Ollama
 
@@ -311,7 +299,6 @@ curl -fsSL https://ollama.com/install.sh | sh
 **Windows:**
 Download the installer from: https://ollama.com/download/windows
 
----
 
 ### Step 2: Start the Ollama Server
 
@@ -321,7 +308,6 @@ ollama serve
 
 This starts Ollama in the background, listening on port 11434. Keep this terminal window open, or run it as a background service.
 
----
 
 ### Step 3: Pull Your Chosen Model
 
@@ -343,7 +329,6 @@ You can check what models you have downloaded:
 ollama list
 ```
 
----
 
 ### Step 4: Install Claude Code
 
@@ -353,7 +338,6 @@ If you haven't already installed Claude Code:
 npm install -g @anthropic-ai/claude-code
 ```
 
----
 
 ### Step 5: Connect Claude Code to Your Local Model
 
@@ -380,7 +364,6 @@ $env:ANTHROPIC_AUTH_TOKEN = "ollama"
 $env:ANTHROPIC_API_KEY = ""
 ```
 
----
 
 ### Step 6: Launch Claude Code with Your Local Model
 
@@ -397,7 +380,6 @@ You can also use the quick launch command that Ollama provides:
 ollama launch claude
 ```
 
----
 
 ### Step 7: Increase Context Window (Important!)
 
@@ -420,7 +402,6 @@ ollama create my-coder -f Modelfile
 claude --model my-coder
 ```
 
----
 
 ### Step 8: Make It Permanent (Optional)
 
@@ -438,7 +419,6 @@ Then reload:
 source ~/.zshrc
 ```
 
----
 
 ### Tips for Best Results with Local Models
 
@@ -447,13 +427,11 @@ source ~/.zshrc
 - **If tool calls fail**, try switching to `llama3.1:8b`, which has the best tool-calling compatibility with Claude Code.
 - **Close other heavy applications** while running local models to free up RAM and VRAM.
 
----
 
 ## 4. Running Your Model on a VPS
 
 If your laptop doesn't have enough GPU power to run a capable model locally, you can rent a cloud server (VPS) with a GPU for just a few dollars and run the model there. You then connect to it from your laptop as if it were running locally.
 
----
 
 ### Recommended VPS Providers for LLMs
 
@@ -468,7 +446,6 @@ If your laptop doesn't have enough GPU power to run a capable model locally, you
 
 > For a hackathon, **RunPod** or **Vast.ai** are recommended because you only pay for the time you use (hourly billing).
 
----
 
 ### Step-by-Step: Setting Up a RunPod GPU Server
 
@@ -537,7 +514,6 @@ claude --model qwen2.5-coder:7b
 
 To avoid charges, go to the RunPod dashboard and stop or terminate your pod when you're not using it.
 
----
 
 ### Step-by-Step: Setting Up on Vast.ai (Budget Option)
 
@@ -552,7 +528,6 @@ To avoid charges, go to the RunPod dashboard and stop or terminate your pod when
 
 **Step 4:** Once running, open the SSH connection and follow the same Ollama installation steps as above (Steps 4-7 from RunPod guide)
 
----
 
 ### Which GPU to Choose?
 
@@ -564,13 +539,11 @@ To avoid charges, go to the RunPod dashboard and stop or terminate your pod when
 | A100 80 GB | 80 GB | 70B+ full precision | ~$1.50-2.50/hr |
 | H100 | 80 GB | Largest models | ~$2.50-4.00/hr |
 
----
 
 ## 5. Free AI Coding Alternatives
 
 If you don't want to set up a local model or a VPS, here are free (or freemium) AI coding tools you can use directly:
 
----
 
 ### Cursor (https://cursor.com)
 
@@ -588,7 +561,6 @@ Cursor is a code editor (based on VS Code) with built-in AI coding assistance.
 4. Use `Ctrl+K` (or `Cmd+K` on Mac) to ask AI to write or edit code
 5. Use `Ctrl+L` to open the AI chat sidebar
 
----
 
 ### GitHub Copilot Free Tier (https://github.com/features/copilot)
 
@@ -603,7 +575,6 @@ GitHub Copilot now has a free tier:
 3. Install the Copilot extension in VS Code
 4. Start coding; suggestions appear automatically
 
----
 
 ### Google AI Studio (https://aistudio.google.com)
 
@@ -612,7 +583,6 @@ GitHub Copilot now has a free tier:
 - Great for pasting large amounts of code and getting explanations
 - No subscription required, just a Google account
 
----
 
 ### OpenRouter (https://openrouter.ai)
 
@@ -623,7 +593,6 @@ export ANTHROPIC_BASE_URL="https://openrouter.ai/api/v1"
 export ANTHROPIC_API_KEY="your-openrouter-key"
 ```
 
----
 
 ## 6. About Stella: Stellar's AI Assistant
 
@@ -666,7 +635,6 @@ During the hackathon, use Stella when you have Stellar-specific questions. It's 
 
 For general programming questions, use one of the open-source models described in this guide or a free tool like Cursor or Google AI Studio.
 
----
 
 ## Summary: Your AI Toolkit for the Hackathon
 
@@ -679,7 +647,6 @@ For general programming questions, use one of the open-source models described i
 | Just want something that works now | Cursor free tier or Google AI Studio |
 | Using Claude Code for free | Llama 3.1 8B via Ollama (best tool-call compatibility) |
 
----
 
 *Document prepared by the Stellar Development Foundation for hackathon participants.*
 *Open-source models are free to download and use. Always check individual model licenses for commercial use restrictions.*

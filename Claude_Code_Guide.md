@@ -2,7 +2,6 @@
 
 A practical reference for using Claude Code effectively during the hackathon: key commands, plan mode, parallel agents, plugins, browser automation, and videos worth watching.
 
----
 
 ## 1. Core Workflow Concepts
 
@@ -32,7 +31,6 @@ What to include:
 - Testnet addresses and API endpoint overrides
 - Anything you'd otherwise have to re-explain every session
 
----
 
 ## 2. Full Command Reference
 
@@ -90,7 +88,6 @@ What to include:
 - **`/compact` vs `/clear`:** Use `/compact` when you want Claude to keep working on the same task but the context is getting long. Use `/clear` when you're starting a completely new task.
 - **Chain tasks:** End one task with a clear handoff note ("now do X next") and Claude will carry context into the next step without you re-explaining the codebase.
 
----
 
 ## 3. Plugins and Skills
 
@@ -111,7 +108,6 @@ What to include:
 
 Type the skill name in the chat or use the colon syntax: `stellar-dev:stellar-dev`. Claude will load the playbook and apply it to your current task.
 
----
 
 ## 4. Browser Automation
 
