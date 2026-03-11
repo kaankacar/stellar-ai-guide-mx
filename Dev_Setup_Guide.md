@@ -5,12 +5,12 @@
 
 ## Section 1: API Keys and Credentials
 
-**Get these before the hackathon.** DeFindex and Etherfuse have no self-service portal. You have to contact the team. Budget 24-48h for responses.
+**Get these before the hackathon.** DeFindex and Etherfuse have no self-service portal. If you haven't sorted this before the event starts, find your nearest DevRel mentor and ask them to help you get access.
 
 | Protocol | Key Required | How to Get | Wait | Contact |
 |---|---|---|---|---|
-| Etherfuse | Yes | Discord / email | 24-48h | stablebond@etherfuse.com |
-| DeFindex | Yes | Discord DM | 24-48h | Discord: paltalabs |
+| Etherfuse | Yes | Ask a DevRel mentor | 24-48h | DevRel mentor |
+| DeFindex | Yes | Ask a DevRel mentor | 24-48h | DevRel mentor |
 | Soroswap | No | -- | -- | -- |
 | Phoenix | No | -- | -- | -- |
 | Aquarius | No | -- | -- | -- |

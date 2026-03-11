@@ -24,7 +24,7 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 Everything you need before writing code, in one place.
 
-**API keys:** Etherfuse and DeFindex have no self-service signup. You have to contact the team (stablebond@etherfuse.com for Etherfuse, Discord: paltalabs for DeFindex) and budget 24-48h for a response. Get this done before the hackathon starts. Soroswap, Phoenix, Aquarius, and Blend require no key.
+**API keys:** Etherfuse and DeFindex have no self-service signup. Get this done before the hackathon starts, or find your nearest DevRel mentor at the event and ask them to help you get access. Soroswap, Phoenix, Aquarius, and Blend require no key.
 
 **Testnet contract addresses:** Verified DeFindex addresses are included (Factory, USDC vault, XLM vault). Addresses for Soroswap, Phoenix, Blend, Aquarius, and Reflector Oracle will be added as they're confirmed. If they're still TBD when you're reading this, ask a mentor.
 
