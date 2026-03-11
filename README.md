@@ -6,6 +6,8 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 ## Start here
 
+**About to open Claude Code for the first time?** Start with `Starter_Prompts.md`. It has a ready-to-paste protocol context block, the correct way to describe what you're building so Claude doesn't default to the wrong architecture, and a CLAUDE.md template for Stellar projects.
+
 **Building with Mexican peso rails?** The regional starter pack (`Hackathon_Resources.md`) is the fastest path. It has Etherfuse (MXN to CETES via SPEI), AlfredPay (MXN to USDC via SPEI), and BlindPay already wired up as a portable TypeScript library you can drop into any Node project. Before you use Etherfuse, read its section in `Dev_Setup_Guide.md`. There are several non-obvious gotchas (auth format, customer_id permanence, sandbox simulation) that have cost developers hours.
 
 **Don't have a paid AI subscription?** Start with `Free_AI_Setup.md`. It covers six capable open-source models, how to run them locally for free via Ollama, and how to connect them to Claude Code. If your laptop can't run a large model, it also covers renting a GPU server for a few dollars on RunPod or Vast.ai.
@@ -14,11 +16,26 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 ## Suggested reading order
 
-1. `Free_AI_Setup.md` if you need a free AI setup
-2. `Dev_Setup_Guide.md` before writing any code
-3. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem
-4. `Claude_Code_Guide.md` if you're using Claude Code
-5. `Recommended_AI_Tools.md` to explore what else is available
+1. `Starter_Prompts.md` before your first Claude Code session
+2. `Free_AI_Setup.md` if you need a free AI setup
+3. `Dev_Setup_Guide.md` before writing any code
+4. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem
+5. `Claude_Code_Guide.md` for commands, parallel agents, and browser automation
+6. `Recommended_AI_Tools.md` to explore what else is available
+
+## Starter_Prompts.md
+
+The fastest way to avoid the most common Claude mistake at a hackathon: building a DeFi dApp with Freighter integration when you wanted a self-custodial wallet.
+
+**Wallet vs. dApp:** A concrete before/after prompt showing how to describe your architecture so Claude builds the right thing on the first attempt. Not a DeFi interface. A self-custodial wallet that generates its own BIP-39 mnemonic, encrypts it with your password, and stores it in localStorage.
+
+**Protocol context block:** A ready-to-paste block covering SDK version (v14, `rpc` namespace), Stellar Wallets Kit version, correct USDC issuer for DeFindex compatibility, and network configuration. Paste it at the top of your first message.
+
+**Parallel agent prompt template:** The exact prompt to spawn three parallel agents (core logic + tests / state + routing / UI components) after your scaffold is done. From the DevRel experiment: same work, 40% less wall-clock time.
+
+**CLAUDE.md template:** What to put in your project's CLAUDE.md for a Stellar wallet build, including Etherfuse and DeFindex specific notes.
+
+**Quick corrective prompts:** One-liners for the most common mid-session corrections (wrong wallet type, wrong SDK version, wrong USDC issuer, stuck on DeFindex key, stuck polling sendTransaction).
 
 ## Dev_Setup_Guide.md
 
@@ -71,15 +88,15 @@ All links are in the file.
 
 **Plan mode** (`Shift+Tab` or `/plan`): Claude reasons through the problem before touching any code. Use it for anything larger than a one-liner. It produces a numbered plan you can edit before it executes.
 
-**Parallel agents:** Claude Code can run multiple subagents simultaneously on independent tasks. In a controlled experiment, 5 parallel agents produced a 6.2x speedup over sequential execution. Use them when tasks don't share files or have ordering dependencies.
+**Parallel agents:** The pattern that works: plan mode (20 min) → scaffold agent → 3 parallel agents (core logic + tests / state + routing / UI components) → integration agent → browser smoke test. In the DevRel experiment, this cut wall-clock time by roughly 40% on a 145-minute build. `Starter_Prompts.md` has the exact prompt to trigger this pattern.
 
 **CLAUDE.md:** A project-level file that every Claude Code session reads automatically on startup. Put your tech stack, USDC issuer, testnet addresses, and any project-specific gotchas here so you never have to re-explain them.
+
+**Browser integration testing:** Claude in Chrome can open your running app, click through every user flow, and verify on-chain results without you touching the keyboard. The guide has the full smoke test prompt (create wallet → Friendbot → trustline → lock/unlock → verify balance) and the fix for the `oninput` event issue in Svelte.
 
 **Stellar-specific plugins:**
 - `stellar-dev:stellar-dev`: full Stellar development playbook (Soroban, SDKs, RPC, wallet integration, passkeys, security patterns). Pre-installed in Claude Code.
 - `openzeppelin-skills`: three skills for secure Stellar contract development, plus the OZ MCP server for AI-assisted contract generation. Install with `/plugin marketplace add OpenZeppelin/openzeppelin-skills`.
-
-**Browser automation:** Claude in Chrome (extension, works with live pages) and agent-browser by Vercel Labs (CLI headless browser, faster than Playwright, uses ARIA tree for element selection).
 
 Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 
