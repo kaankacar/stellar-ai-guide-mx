@@ -13,12 +13,40 @@ In plan mode, Claude produces a numbered plan you can review and edit before con
 
 ### Parallel Agents
 
-Claude Code can spawn multiple subagents that run simultaneously on independent tasks. Example: while one agent writes tests, another updates documentation, and a third refactors a module. In the DevRel experiment (kaankacar), 5 parallel agents produced a 6.2x speedup vs. sequential execution.
+Claude Code can spawn multiple subagents that run simultaneously on independent tasks. In the DevRel experiment (kaankacar), 3 parallel agents cut wall-clock time by roughly 40% on a 145-minute total build.
+
+**The pattern that works:**
+
+```
+[Plan mode: 20 min] → [Scaffold agent] → [3 parallel agents] → [Integration agent] → [Browser smoke test]
+```
+
+After your scaffold is in place, use this prompt to trigger the parallel phase:
+
+```
+The scaffold is in place. Divide the remaining work into three independent tracks:
+
+Track 1: Core logic and tests
+- [list the pure-logic modules]
+- Write Vitest unit tests for each module as you go
+
+Track 2: State management and routing
+- [list the stores, state singletons, and routing logic]
+
+Track 3: UI components
+- [list the pages and components]
+- Use the stores from Track 2; do not duplicate state
+
+Spawn one agent per track and run them in parallel.
+Once all three complete, spawn a fourth agent to wire everything together and run the full test suite.
+```
 
 Use parallel agents when:
 - Tasks don't share files or have ordering dependencies
 - You're doing research + implementation simultaneously
 - You want to explore multiple approaches at once
+
+**Why plan mode first matters:** The 20-minute upfront plan session is what makes parallelization possible. Without it, agents make conflicting assumptions about state shape and file structure. With it, each agent works from the same blueprint and the integration agent has almost nothing to fix.
 
 ### CLAUDE.md
 
@@ -30,6 +58,8 @@ What to include:
 - Gotcha notes specific to your project (e.g., which USDC issuer you're using)
 - Testnet addresses and API endpoint overrides
 - Anything you'd otherwise have to re-explain every session
+
+See `Starter_Prompts.md` for a ready-to-fill CLAUDE.md template for Stellar projects.
 
 
 ## 2. Full Command Reference
@@ -121,6 +151,38 @@ Good for: interacting with web UIs, testing deployed apps, pulling data from liv
 
 Setup: install the extension from the Chrome Web Store, then Claude gets `mcp__claude-in-chrome__*` tools automatically.
 
+### Integration Testing with Claude in Chrome
+
+This is the most underused capability in a typical hackathon session. Claude can open your running app in a browser, click through every user flow, and verify on-chain results, without you touching the keyboard.
+
+**Full smoke test prompt (paste after your dev server is running):**
+
+```
+Open http://localhost:5173 in Chrome.
+
+Run this smoke test sequence and report pass/fail for each step:
+
+1. Create wallet: click "Create New Wallet", note the generated mnemonic phrase
+2. Friendbot: call Friendbot for the new wallet's public key, confirm XLM balance appears
+3. Trustline: click "Add CETES trustline", confirm the transaction succeeds on-chain
+4. Lock/Unlock: click "Lock Wallet", re-enter the password, confirm the app returns to the dashboard
+5. Balance display: confirm XLM balance is visible in the wallet panel
+
+For each step: describe what you see, what you did, and whether it passed.
+If a step fails, paste the error message or console output.
+```
+
+**Known friction point:** Programmatic typing via the MCP `type` action fires keyboard events but not the HTML `input` event. If your framework listens to `oninput` (Svelte does), typed values won't trigger reactivity. Fix:
+
+```javascript
+// After typing into an input, dispatch a synthetic input event
+const input = document.querySelector('input[name="password"]');
+input.value = 'your-value';
+input.dispatchEvent(new Event('input', { bubbles: true }));
+```
+
+Tell Claude: "After typing into any input field, dispatch a synthetic input event to trigger framework reactivity."
+
 ### agent-browser (vercel-labs)
 
 CLI-based headless browser built for AI agents, written in Rust. Works with any browser, not Chrome-specific. Faster than Playwright and Puppeteer for AI-driven workflows. Uses the ARIA accessibility tree for element selection instead of CSS selectors.
@@ -129,4 +191,3 @@ Good for: server-side automation, CI pipelines, headless scraping, any context w
 
 - Repo: https://github.com/vercel-labs/agent-browser
 - Install: `npm install -g @vercel/agent-browser` or via Homebrew
-
