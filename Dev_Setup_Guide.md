@@ -5,19 +5,19 @@
 
 ## Section 1: API Keys and Credentials
 
-**Get these before the hackathon.** DeFindex and Etherfuse have no self-service portal. If you haven't sorted this before the event starts, find your nearest DevRel mentor and ask them to help you get access.
+**Get your Etherfuse key before the hackathon.** Etherfuse has no self-service portal. If you haven't gotten a key before the event starts, find the Etherfuse team or a DevRel mentor — don't assume someone can provision one on the spot. The other protocols below all support self-service signup.
 
 | Protocol | Key Required | How to Get | Wait | Contact |
 |---|---|---|---|---|
-| Etherfuse | Yes | Ask a DevRel mentor | 24-48h | DevRel mentor |
-| DeFindex | Yes | Ask a DevRel mentor | 24-48h | DevRel mentor |
+| Etherfuse | Yes | Ask the Etherfuse team or DevRel mentor | Before hackathon | Etherfuse team / DevRel |
+| DeFindex | Yes | Self-service via docs | Instant | https://docs.defindex.io/api-integration-guide/api#generate-your-api-key |
 | Soroswap | No | -- | -- | -- |
 | Phoenix | No | -- | -- | -- |
 | Aquarius | No | -- | -- | -- |
 | Blend | No | -- | -- | -- |
-| Reflector Oracle | TBD | TBD | TBD | TBD |
-| BlindPay | TBD | TBD | TBD | TBD |
-| AlfredPay | TBD | TBD | TBD | TBD |
+| Reflector Oracle | No | -- | -- | -- |
+| BlindPay | Yes (sandbox) | Self-service at app.blindpay.com | Instant | https://app.blindpay.com |
+| AlfredPay | Yes (sandbox) | Public sandbox keys in docs | Instant | See below |
 
 
 ### Etherfuse
@@ -34,12 +34,24 @@
 
 - **SDK env var:** `DEFINDEX_API_KEY`
 - **Auth:** `Authorization: Bearer your-api-key` (standard Bearer, opposite of Etherfuse)
-- No docs page for self-service signup (returns 404); Discord is the only path
+- **Self-service signup:** https://docs.defindex.io/api-integration-guide/api#generate-your-api-key
 
-**Still being documented (will be updated here soon):**
-- BlindPay sandbox access process
-- AlfredPay sandbox access process
-- Reflector Oracle auth requirements
+
+### AlfredPay
+
+Public sandbox credentials from the AlfredPay docs — shared and intended for anyone reading the docs.
+
+- **api-key:** `alfredpay.T+QdhCoMofy8.gGKO5KdB7M+B/9jLFef`
+- **api-secret:** `PwF+cDGZd37eHYZ.CVvF1/zbHCBosSo1`
+- **Auth headers:** `api-key` and `api-secret` (see Section 4)
+- **Reference:** https://alfredpay.readme.io/reference/post_customers-create-1
+
+
+### BlindPay
+
+1. Sign up at https://app.blindpay.com
+2. Create a free "Development instance"
+3. Generate API keys for that instance
 
 
 ## Section 2: Testnet Contract Addresses
@@ -72,10 +84,10 @@ Verified from the paltalabs registry.
 
 | Contract | Address |
 |---|---|
-| Router / Aggregator | TBD |
-| Factory | TBD |
+| Router | `CCJUD55AG6W5HAI5LRVNKAE5WDP5XGZBUDS5WNTIVDU7O264UZZE7BRD` |
+| Factory | `CDP3HMUH6SMS3S7NPGNDJLULCOXXEPSHY4JKUKMBNQMATHDHWXRRJTBY` |
 
-> Verified addresses will be added here as soon as they're confirmed.
+Source: https://github.com/soroswap/core/blob/main/public/testnet.contracts.json
 
 
 ### Phoenix (testnet)
@@ -92,31 +104,27 @@ Verified from the paltalabs registry.
 
 | Contract | Address |
 |---|---|
-| Pool Factory | TBD |
-| USDC Pool | TBD |
+| Pool Factory V2 | `CDV6RX4CGPCOKGTBFS52V3LMWQGZN3LCQTXF5RVPOOCG4XVMHXQ4NTF6` |
+| Backstop V2 | `CBDVWXT433PRVTUNM56C3JREF3HIZHRBA64NB2C3B2UNCKIS65ZYCLZA` |
+| TestnetV2 Pool | `CCEBVDYM32YNYCVNRXQKDFFPISJJCV557CDZEIRBEE4NCV4KHPQ44HGF` |
+| CETES Pool (kaankacar) | `CAPBMXIQTICKWFPWFDJWMAKBXBPJZUKLNONQH3MLPLLBKQ643CYN5PRW` |
 
-> Verified addresses will be added here as soon as they're confirmed.
+The CETES pool is listed on https://testnet.blend.capital
+
+Source: https://github.com/blend-capital/blend-utils/blob/main/testnet.contracts.json
 
 
 ### Aquarius (testnet)
 
-| Contract | Address |
-|---|---|
-| AMM Contract | TBD |
-
-> Verified address will be added here as soon as it's confirmed.
+Aquarius does not publish a static contract address list. Use the testnet app to find current pool addresses: https://testnet.aqua.network/pools
 
 
 ### Reflector Oracle (testnet)
 
-| Contract | Address |
-|---|---|
-| Price Oracle | TBD |
-
-> Verified address will be added here as soon as it's confirmed.
+Contract addresses are listed at https://reflector.network/oracles — use the mainnet/testnet toggle in the upper-right.
 
 
-> The TBD rows above will be filled in before the hackathon. If you're reading this and something is still missing, ask a mentor for the latest addresses rather than guessing.
+> Testnet contracts get redeployed periodically. If an address stops working, check the source links above for updated values.
 
 
 ## Section 3: Testnet Asset Registry
@@ -128,7 +136,8 @@ Verified from the paltalabs registry.
 | Source | Issuer Address | Used by |
 |---|---|---|
 | Circle (standard testnet) | `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5` | Soroswap, SDEX, most protocols |
-| Blend / Etherfuse | `GATALTGTWIOT6BUDBCZM3Q4OQ4BO2COLOAZ7IYSKPLC2PMSOPPGF5V56` | Blend pools, Etherfuse flows |
+| Blend | `GATALTGTWIOT6BUDBCZM3Q4OQ4BO2COLOAZ7IYSKPLC2PMSOPPGF5V56` | Blend pools |
+| Etherfuse | TBD — Etherfuse feeds their own USDC issuer to testnet SDEX liquidity; verify before using | Etherfuse flows |
 
 **Rule:** Check which issuer your protocol expects. Do NOT assume USDC is USDC on testnet.
 
@@ -138,17 +147,19 @@ Verified from the paltalabs registry.
 **Testnet issuer:** `GC3CW7EDYRTWQ635VDIGY6S4ZUF5L6TQ7AA4MWS7LEQDBLUSZXV7UPS4`
 **Mainnet / production issuer:** `GCRYUGD5NVARGXT56XEZI5CIFCQETYHAPQQTHO2O3IQZTHDH4LATMYWC`
 
-| Asset Code | Name | Notes |
-|---|---|---|
-| CETES | Mexican CETES Bonds | Primary tested asset |
-| USTRY | US Treasury Notes | Verified on testnet |
-| KTB | Korean Treasury Bonds | Listed in testnet toml |
-| CARN | Brazilian Tesouro Bonds | Listed in testnet toml |
-| CZERO | CETES Zero (0% APY) | Anchor asset = MXN |
+| Asset Code | Name | SAC Contract ID | Notes |
+|---|---|---|---|
+| CETES | Mexican CETES Bonds | TBD | Primary tested asset |
+| USTRY | US Treasury Notes | TBD | Verified on testnet |
+| KTB | Korean Treasury Bonds | TBD | Listed in testnet toml |
+| CARN | Brazilian Tesouro Bonds | TBD | Listed in testnet toml |
+| CZERO | CETES Zero (0% APY) | TBD | Anchor asset = MXN |
+
+> SAC contract IDs can be derived from the issuer + asset code using the Stellar SDK: `Contract.fromAsset(asset, networkPassphrase)`. Ask a mentor or check Stellar Lab for pre-computed addresses.
 
 **Testnet limitation:** There is no CETES/USDC liquidity on the testnet SDEX. `pathPaymentStrictSend` will always fail with `op_no_path`. You can test the trustline flow, but not the actual buy/sell swap.
 
-> A testnet faucet for stablebond assets is being worked on. For now, ask a mentor if a pre-funded test account is available at the event.
+> To get testnet CETES: use the Etherfuse API onramp process — the same flow you'd build in production. The sandbox auto-approves, minting CETES directly to your testnet wallet. This IS the faucet. Swapping via Soroswap, Aquarius, or SDEX may or may not work on testnet; onramp is the reliable path.
 
 
 ## Section 4: Authentication Patterns
@@ -159,6 +170,7 @@ Auth format varies per protocol in ways that are not documented anywhere. This t
 |---|---|---|
 | Etherfuse | `Authorization: your-api-key` | NO "Bearer" prefix. Raw key only. |
 | DeFindex | `Authorization: Bearer your-api-key` | Standard Bearer. Opposite of Etherfuse. |
+| AlfredPay | `api-key: <key>` + `api-secret: <secret>` | Two separate headers, not Bearer. |
 | Soroban RPC | Varies by provider | Some use Bearer, some use `X-API-Key` |
 | Horizon | None | IP rate limit: 3,600 req/hour per IP |
 | Soroswap | None | No auth required |
@@ -191,9 +203,21 @@ headers: {
 These are the issues that blocked developers for 30-120 minutes each across 60 build runs. Know them upfront.
 
 
-### Etherfuse: customer_id is permanent
+### Etherfuse: customer_id and bankAccountId are per end-user
 
-Generate exactly once per user, store in your database, reuse forever. If you generate a new UUID per request, you'll get "Bank account not found" errors with no useful debug info. Both `customer_id` and `bankAccountId` follow this pattern: you assign them, Etherfuse binds them on first use.
+Each end-user of your app needs their own `customer_id` and `bankAccountId`. These are permanent per user — generate once, store in your database, reuse forever. Never generate a new one per request or per session. If you generate duplicates, you'll get "Bank account not found" errors with no useful debug info.
+
+You assign both IDs yourself (they're UUIDs you generate). Etherfuse binds them on first use.
+
+
+### Etherfuse: a public key can only be registered to one customer
+
+The `create customer` and `create bank account` requests will fail if the public key (G... address) was already registered in a previous call — even in sandbox. If you're re-running your setup flow, reuse the same `customer_id` and `bankAccountId` rather than trying to re-register.
+
+
+### Etherfuse: quotes support an optional swap
+
+The `GET /ramp/quote` endpoint accepts a `swap` parameter that lets you request a conversion as part of the quote (e.g., CETES to USDC in one step). Not all flows require this, but it exists. Reference: https://docs.etherfuse.com/api-reference/quotes/get-quote-for-conversion
 
 
 ### Etherfuse: order response fields are inconsistent
@@ -252,10 +276,12 @@ for (let i = 0; i < 60; i++) {
 throw new Error('Transaction timeout after 60s');
 ```
 
+Alternatively, the JS SDK provides `rpc.Server.pollTransaction(hash, options)` which wraps this loop: https://stellar.github.io/js-stellar-sdk/module-rpc.Server.html#pollTransaction
 
-### DeFindex: XLM must be SAC-wrapped
 
-Native XLM cannot be deposited directly into DeFindex vaults. It must be wrapped as a Stellar Asset Contract (SAC) token first, which requires an additional contract call before the deposit. This requirement appears nowhere in the docs.
+### DeFindex: classic assets must be SAC-deployed
+
+Classic Stellar assets (XLM, USDC, etc.) cannot be deposited into Soroban-based protocols like DeFindex directly — they must first be deployed as Stellar Asset Contracts (SACs). This is a one-time, network-wide action per asset. In practice, all major testnet assets (including native XLM and Circle USDC) have already been SAC-deployed. You should not need to deploy one yourself. If you hit a "contract not found" error on deposit, verify the SAC address for that asset using `Contract.fromAsset(asset, networkPassphrase)`.
 
 
 ### DeFindex: API quirks
@@ -271,29 +297,18 @@ Native XLM cannot be deposited directly into DeFindex vaults. It must be wrapped
 Establish trustlines before any operation that will receive an asset. Skipping this produces `op_no_destination` or a silent no-op.
 
 
-### Stellar memo limit: 28 bytes
-
-UUIDs are 36 characters. Strip dashes and truncate:
-
-```typescript
-const memo = uuid.replace(/-/g, '').slice(0, 28);
-```
-
-
 ## Section 6: Known Limitations, and What to Ask Your DevRel Mentor
 
 These are things that don't work smoothly yet or aren't documented. If you hit any of them during the hackathon, don't spin your wheels. Ask a DevRel mentor directly. They can unblock you faster than debugging alone.
 
-### Things that aren't available yet (ask for help)
+### Things that still need manual help
 
-- **Etherfuse sandbox key:** no self-service signup exists yet. If you haven't gotten a key before the hackathon starts, find a DevRel mentor immediately. Don't wait for email; they can often provision one on the spot.
-- **DeFindex API key:** same situation. No self-service path. If you need one during the event, ask DevRel.
-- **Testnet CETES balance:** there's no faucet for stablebond assets on testnet. You can test trustlines but not actual buy/sell flows. Ask your mentor if there's a funded test account available for the event.
-- **Unified testnet address list:** no single canonical source exists for all protocol contract addresses. The TBD rows in Section 2 of this file are genuinely unknown at time of writing. Ask DevRel for the latest before assuming an address is correct.
+- **Etherfuse sandbox key:** no self-service signup. If you don't have a key before the hackathon, find the Etherfuse team or a DevRel mentor. Don't assume anyone can provision one on the spot — sort this before the event.
+- **Testnet CETES balance:** use the Etherfuse onramp flow to mint testnet CETES. The sandbox auto-approves and mints directly to your wallet. This IS the faucet. See Section 3.
 
 ### Things the docs don't cover (save yourself the debugging time)
 
-- **DeFindex: XLM SAC wrapping:** required before vault deposits, not mentioned anywhere in the docs. See Section 5.
+- **Classic asset SAC deployment:** required before depositing into Soroban-based protocols like DeFindex, not mentioned in the docs. In practice, all common assets are already deployed. See Section 5.
 - **DeFindex: rate limits:** undocumented. If you're getting throttled, ask a mentor what the current limits are.
 - **DeFindex: webhook retry policy:** undocumented. If you need reliable webhook delivery for your project, ask before building around it.
 - **Etherfuse: quote expiration:** quotes expire after ~2 minutes. Not documented prominently. Design your flow accordingly.
