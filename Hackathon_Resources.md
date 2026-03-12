@@ -85,6 +85,18 @@ Integrates Blend, Soroswap, Phoenix, Aquarius, SDEX, and Reflector Oracle in a s
 | Reflector Oracle | On-chain USD price feeds |
 
 
+### AI Integration Series (carstenjacobsen)
+
+Four focused reference apps built with Claude Code, each paired with a `BUILD_REPORT.md` documenting integration decisions, gotchas, and workarounds. All use Next.js + TypeScript + Freighter, and follow the same server-side SDK pattern: API credentials stay in Next.js route handlers, Freighter signs transactions client-side.
+
+| Repo | What it demonstrates |
+|---|---|
+| [ai-freighter-integration](https://github.com/carstenjacobsen/ai-freighter-integration) | Freighter wallet connection, XLM balance display, send payments, transaction history |
+| [ai-soroswap-integration](https://github.com/carstenjacobsen/ai-soroswap-integration) | Multi-DEX swap aggregator routing across Soroswap, Phoenix, Aqua, and SDEX simultaneously |
+| [ai-defindex-integration](https://github.com/carstenjacobsen/ai-defindex-integration) | DeFindex yield vault deposits and withdrawals, dfToken balance, custom vault address support |
+| [ai-passkeys-integration](https://github.com/carstenjacobsen/ai-passkeys-integration) | WebAuthn passkey smart wallet with Etherfuse MXN ↔ CETES on/off-ramp |
+
+
 ## 4. Ecosystem Discovery
 
 | Resource | What it is | Link |

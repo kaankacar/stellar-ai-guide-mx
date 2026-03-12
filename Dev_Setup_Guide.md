@@ -79,6 +79,8 @@ Verified from the paltalabs registry.
 
 **Verification note:** Run 1 (wrong addresses) got `Error(Storage, MissingValue)`. Run 2 (paltalabs addresses above) got `Error(WasmVm, InvalidAction)`, meaning the contract IS deployed and running; the error was a call-level issue, not an address issue.
 
+**API note:** The DeFindex testnet API layer is currently offline. Contract calls still work; the SDK's HTTP layer does not. Use mainnet for full API functionality — source vault addresses from https://app.defindex.io.
+
 
 ### Soroswap (testnet)
 
@@ -252,6 +254,11 @@ POST /ramp/order/crypto_received  # simulate crypto arriving (offramp)
 After creating an order, wait 3-10 seconds before querying its status. Immediate queries return 404. This is not an error; the order is being indexed.
 
 
+### Etherfuse: rejects Soroban contract addresses (C... format)
+
+Etherfuse only accepts classic Stellar addresses (G...). Passkey smart wallets use Soroban contract addresses (C...); if you're building with one, use a fee-payer G... address as the Etherfuse wallet identity instead.
+
+
 ### Soroban: always simulate before sending
 
 ```typescript
@@ -290,11 +297,88 @@ Classic Stellar assets (XLM, USDC, etc.) cannot be deposited into Soroban-based 
 - Query param is `?from=<address>` not `?user=<address>`
 - Amount format is always an array: `{"amounts": [1000000]}` not `{"amount": 1000000}`
 - Success response is HTTP 201, not 200
+- Mark `@defindex/sdk` as `serverExternalPackages` in `next.config.ts` to prevent client-side bundling (the SDK makes authenticated HTTP calls; the API key must stay server-side)
+
+
+### DeFindex: SDK errors are plain objects, not Error instances
+
+The SDK rejects with `error.response.data` — a plain object. Accessing `.message` directly returns `undefined`. Write a normalizer:
+
+```typescript
+function extractErrorMessage(error: unknown): string {
+  if (error && typeof error === 'object') {
+    const e = error as Record<string, unknown>;
+    return String(e.message ?? e.error ?? e.detail ?? e.msg ?? JSON.stringify(error));
+  }
+  return String(error);
+}
+```
+
+
+### Soroswap SDK: amounts must be BigInt, slippage must be a string
+
+Passing regular numbers produces silent failures or validation errors. Always convert:
+
+```typescript
+amount: BigInt(userInput),  // not parseFloat(userInput)
+slippage: '50',             // basis points as string, not a number
+```
+
+Also: the correct npm package is `@soroswap/sdk` (scoped). The GitHub docs reference an outdated unscoped name (`soroswap-sdk`) that will fail to install.
 
 
 ### Trustlines before assets
 
 Establish trustlines before any operation that will receive an asset. Skipping this produces `op_no_destination` or a silent no-op.
+
+
+### Freighter: API calls hang forever without the extension installed
+
+`isConnected()` and other Freighter API calls return promises that never resolve if the extension is not installed. Wrap all Freighter calls with a timeout:
+
+```typescript
+function withTimeout<T>(promise: Promise<T>, ms = 2000): Promise<T | null> {
+  return Promise.race([
+    promise,
+    new Promise<null>(res => setTimeout(() => res(null), ms))
+  ]);
+}
+```
+
+Treat a `null` result as "extension not installed."
+
+
+### Freighter: do not statically import in Next.js (SSR crash)
+
+`@stellar/freighter-api` uses browser globals. Static top-level imports crash server-side rendering. Import dynamically inside async functions instead:
+
+```typescript
+// Crashes SSR
+import { isConnected } from '@stellar/freighter-api';
+
+// Correct
+const { isConnected } = await import('@stellar/freighter-api');
+```
+
+
+### Freighter API v6: signTransaction() returns an object, not a string
+
+In v6, `signTransaction()` returns `{ signedTxXdr: string, signerAddress: string }`, not a raw XDR string. Old v5 examples that use the return value directly will silently pass an object where a string is expected:
+
+```typescript
+const result = await signTransaction(xdr, { networkPassphrase, address });
+const signedXdr = result.signedTxXdr; // required in v6
+```
+
+
+### Stellar: Soroban RPC and Horizon are separate — do not mix
+
+Soroban smart contract calls go to `rpc.Server` (Soroban RPC). Classic operations (Payment, ChangeTrust, etc.) go to `Horizon.Server`. Routing a classic operation to Soroban RPC or vice versa silently fails. Passkey/smart wallet XLM transfers use the Soroban SAC; Freighter account transfers use classic Horizon.
+
+
+### WebAuthn passkeys: rpId must be a domain, not an IP address
+
+WebAuthn rejects IP addresses as the `rpId`. If your browser connects via `127.0.0.1`, explicitly force `rpId` to `'localhost'`. Never use `192.168.x.x` or bare IP addresses for local development.
 
 
 ## Section 6: Known Limitations, and What to Ask Your DevRel Mentor
