@@ -16,12 +16,13 @@ Everything you need before writing a line of code. For the full reference (API k
 | Etherfuse sandbox | `https://devnet.etherfuse.com` |
 | Friendbot (fund testnet accounts) | `https://friendbot.stellar.org` |
 | Testnet USDC issuer (Circle) | `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5` |
-| Testnet USDC issuer (Blend/Etherfuse) | `GATALTGTWIOT6BUDBCZM3Q4OQ4BO2COLOAZ7IYSKPLC2PMSOPPGF5V56` |
+| Testnet USDC issuer (Blend) | `GATALTGTWIOT6BUDBCZM3Q4OQ4BO2COLOAZ7IYSKPLC2PMSOPPGF5V56` |
 
 ### API Keys to Get Early
 
 - **Etherfuse sandbox key:** https://devnet.etherfuse.com (developer signup)
-- **Soroswap/DeFindex:** no key needed on testnet
+- **Soroswap:** no key needed on testnet
+- **DeFindex:** self-service signup at https://docs.defindex.io/api-integration-guide/api#generate-your-api-key
 - **BlindPay / AlfredPay:** check their respective docs for sandbox access
 
 ### Things Worth Knowing Upfront

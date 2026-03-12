@@ -41,24 +41,24 @@ The fastest way to avoid the most common Claude mistake at a hackathon: building
 
 Everything you need before writing code, in one place.
 
-**API keys:** Etherfuse and DeFindex have no self-service signup. Get this done before the hackathon starts, or find your nearest DevRel mentor at the event and ask them to help you get access. Soroswap, Phoenix, Aquarius, and Blend require no key.
+**API keys:** Etherfuse has no self-service signup — get this done before the hackathon or find the Etherfuse team at the event. DeFindex, AlfredPay, and BlindPay all have self-service signup (see Dev_Setup_Guide.md Section 1). Soroswap, Phoenix, Aquarius, and Blend require no key.
 
-**Testnet contract addresses:** Verified DeFindex addresses are included (Factory, USDC vault, XLM vault). Addresses for Soroswap, Phoenix, Blend, Aquarius, and Reflector Oracle will be added as they're confirmed. If they're still TBD when you're reading this, ask a mentor.
+**Testnet contract addresses:** Verified DeFindex, Soroswap, and Blend addresses are included. Aquarius and Reflector Oracle link to their live registries. Phoenix is the only protocol still TBD.
 
 **Auth patterns:** This is where most developers lose time. Etherfuse uses `Authorization: your-api-key` with no Bearer prefix. DeFindex uses `Authorization: Bearer your-api-key`. They're opposites and neither is documented clearly. The guide has correct code snippets for both.
 
-**Testnet asset registry:** Testnet USDC has two different issuers that don't share liquidity; pick the wrong one and swaps silently fail. The guide covers both (Circle and Blend/Etherfuse), plus all five Etherfuse stablebond assets (CETES, USTRY, KTB, CARN, CZERO) with their testnet and mainnet issuer addresses.
+**Testnet asset registry:** Testnet USDC has multiple issuers that don't share liquidity; pick the wrong one and swaps silently fail. The guide covers all three (Circle, Blend, and Etherfuse — each separate), plus all five Etherfuse stablebond assets (CETES, USTRY, KTB, CARN, CZERO) with their testnet and mainnet issuer addresses.
 
 **Critical gotchas** (pulled from 60 build runs):
-- Etherfuse `customer_id` is permanent: generate once, store, reuse forever
+- Etherfuse `customer_id` and `bankAccountId` are per end-user: generate once per user, store, reuse forever — never per session
+- Etherfuse: a G... address can only be registered to one customer; re-registration fails even in sandbox
 - Etherfuse sandbox orders don't progress automatically: you have to POST to `/ramp/order/fiat_received` to simulate fiat arriving
 - Etherfuse has a 3-10 second indexing delay after order creation: immediate status queries return 404
 - Etherfuse response envelopes are inconsistent across endpoints: the guide includes a normalizer
 - Soroban: always simulate before sending (`simulateTransaction` + `assembleTransaction` before `sendTransaction`)
-- `sendTransaction` returns PENDING, not success: you need to poll
-- DeFindex: native XLM must be SAC-wrapped before depositing into vaults
+- `sendTransaction` returns PENDING, not success: you need to poll (or use `rpc.Server.pollTransaction`)
+- DeFindex: classic Stellar assets must be SAC-deployed before depositing into vaults (all common ones already are)
 - DeFindex: the endpoint is `/vault/` not `/vaults/`, amounts are always arrays, success is HTTP 201
-- Stellar memo limit is 28 bytes: strip UUID dashes and truncate
 
 **Section 6** covers known limitations and what to ask your DevRel mentor about, including which things have no self-service path yet and which API behaviors are just reality.
 

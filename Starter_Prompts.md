@@ -93,7 +93,7 @@ Create a `CLAUDE.md` at your repo root with this content. Every Claude Code sess
 - Auth header: `Authorization: Bearer your-api-key`
 - XLM vault address: [address]
 - USDC vault address: [address]
-- Native XLM must be SAC-wrapped before depositing into vaults
+- Classic Stellar assets must be SAC-deployed before depositing into vaults (all common ones already are)
 - Endpoint is /vault/ not /vaults/; amounts are always arrays; success is HTTP 201
 
 ## Wallet architecture
@@ -122,7 +122,7 @@ Create a `CLAUDE.md` at your repo root with this content. Every Claude Code sess
 > Use the DeFindex-compatible USDC issuer on testnet: GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5. The Circle issuer won't share liquidity with DeFindex pools.
 
 **Stuck on DeFindex API key:**
-> Don't wait for the API key. Call the Soroban contracts directly using rpc.Server.simulateTransaction(), then assembleTransaction() and sendTransaction(). Use the paltalabs registry addresses for testnet vault addresses.
+> DeFindex has self-service signup at https://docs.defindex.io/api-integration-guide/api#generate-your-api-key. If you'd rather skip the key entirely, call the Soroban contracts directly using rpc.Server.simulateTransaction(), then assembleTransaction() and sendTransaction(). Use the paltalabs registry addresses for testnet vault addresses.
 
 **Stuck polling after sendTransaction:**
 > sendTransaction returns PENDING, not a final status. You need to poll rpc.getTransaction(hash) until status is SUCCESS or FAILED. Add a polling loop with 1s intervals and a 30s timeout.
