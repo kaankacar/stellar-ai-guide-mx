@@ -10,7 +10,7 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 **Building with Mexican peso rails?** The regional starter pack (`Hackathon_Resources.md`) is the fastest path. It has Etherfuse (MXN to CETES via SPEI), AlfredPay (MXN to USDC via SPEI), and BlindPay already wired up as a portable TypeScript library you can drop into any Node project. Before you use Etherfuse, read its section in `Dev_Setup_Guide.md`. There are several non-obvious gotchas (auth format, customer_id permanence, sandbox simulation) that have cost developers hours.
 
-**Don't have a paid AI subscription?** Start with `Free_AI_Setup.md`. It covers six capable open-source models, how to run them locally for free via Ollama, and how to connect them to Claude Code. If your laptop can't run a large model, it also covers renting a GPU server for a few dollars on RunPod or Vast.ai.
+**Don't have a paid AI subscription?** Start with `Free_AI_Setup.md`. The fastest path is Hunter Alpha via OpenRouter — a 1T+ parameter model with a 1M context window, completely free, released March 2026. The guide also covers Groq (Llama 3.1 8B at 14,400 req/day), Mistral Codestral (2,000 req/day, code-optimized), Google AI Studio, and a table of providers offering free trial credits ($1-$5). If you'd rather run models locally, it covers six open-source models via Ollama and how to rent a GPU server on RunPod or Vast.ai for a few dollars.
 
 **About to write code?** Read `Dev_Setup_Guide.md` first. Five minutes here saves hours later.
 
@@ -135,6 +135,12 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 
 ## Free_AI_Setup.md
 
+**Best free cloud option:** Hunter Alpha via OpenRouter — 1T+ params, 1M context window, $0/token, released March 2026. Designed for agentic workflows. Works directly with Claude Code (`claude --model openrouter/hunter-alpha`). No credit card required.
+
+**Other free cloud APIs (no credit card):** Groq (Llama 3.1 8B at 14,400 req/day — fastest), Mistral Codestral (2,000 req/day, code-optimized), Google AI Studio (Gemini 2.5 Flash, 1M ctx), Cerebras, GitHub Models. All have Claude Code config snippets in the guide.
+
+**Free trial credits ($1-$5):** SambaNova ($5 for 3 months), Scaleway (1M free tokens), Nebius, Hyperbolic, Fireworks. Enough for a full hackathon weekend.
+
 **Open-source models you can run locally:**
 
 | Model | Best for | Min. VRAM |
@@ -146,10 +152,8 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 | Codestral (22B) | Inline autocomplete | 16 GB (quantized) |
 | StarCoder2-7B | Broad language support, open-source friendly | 14 GB |
 
-All of these run through **Ollama**, which installs in one command and exposes the model through a local API that Claude Code can connect to. The guide walks through the full setup in 8 steps.
+All of these run through **Ollama**, which installs in one command. The guide walks through the full setup in 8 steps.
 
-**No GPU?** The guide covers renting a GPU server on RunPod (~$0.20/hr for an RTX 4090) or Vast.ai (~$0.15/hr). You SSH-tunnel the port back to your laptop and Claude Code sees it as if it were local. A full hackathon weekend costs $10-20.
-
-**Free web alternatives** (no setup at all): Cursor free tier, GitHub Copilot free tier, Google AI Studio (Gemini 2.0 Flash, 1M context, fully free), OpenRouter.
+**No GPU?** Rent a GPU server on RunPod (~$0.20/hr for an RTX 4090) or Vast.ai (~$0.15/hr). SSH-tunnel the port back and Claude Code sees it as if it were local. A full hackathon weekend costs $10-20.
 
 *SDF DevRel, March 2026*
