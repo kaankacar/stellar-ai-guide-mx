@@ -69,6 +69,21 @@ Includes pre-configured MCP servers for Claude Code (Svelte docs + Etherfuse doc
 
 ## 3. Reference Implementations
 
+### Ya Otter Save (briwylde08)
+
+Repo: https://github.com/briwylde08/ya-otter-save
+Live demo: https://ya-otter-save.vercel.app/
+
+A testnet demo showing a complete MXN savings flow composed from three protocols:
+
+```
+MXN (bank) → Etherfuse on-ramp → CETES → Stellar DEX swap → USDC → Blend deposit (yield)
+                                                           ← reverse path for withdrawal
+```
+
+Useful for seeing how Etherfuse, the Stellar DEX, and Blend compose end-to-end in a single TypeScript/Next.js app.
+
+
 ### Stellar DeFi App
 
 Full mainnet DeFi dashboard: https://github.com/kaankacar/stellar-defi-app
