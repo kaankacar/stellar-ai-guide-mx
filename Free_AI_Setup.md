@@ -1,7 +1,7 @@
 # Stellar Development Foundation Hackathon: AI Tools Guide
 ## Using Open-Source AI Models for Coding
 
-**Prepared for: SDF Hackathon, Mexico**
+**Prepared for: Hack+ Alebrije | CDMX 2026**
 **Date: March 2026**
 
 

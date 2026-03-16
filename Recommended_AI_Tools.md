@@ -1,4 +1,4 @@
-# Recommended AI Tools for the SDF Hackathon
+# Recommended AI Tools for Hack+ Alebrije | CDMX 2026
 
 A curated map of the AI tool ecosystem available during the hackathon. Covers Stellar-native integrations, coding assistants, and multi-agent frameworks. For local/open-source model setup, see `AI_Coding_Guide.md`.
 
