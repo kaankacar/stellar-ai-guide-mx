@@ -12,7 +12,6 @@ Everything you need before writing a line of code. For the full reference (API k
 | Resource | Value |
 |---|---|
 | Soroban RPC (testnet) | `https://soroban-testnet.stellar.org` |
-| Horizon (testnet) | `https://horizon-testnet.stellar.org` |
 | Etherfuse sandbox | `https://devnet.etherfuse.com` |
 | Friendbot (fund testnet accounts) | `https://friendbot.stellar.org` |
 | Testnet USDC issuer (Circle) | `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5` |

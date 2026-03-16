@@ -63,7 +63,6 @@ These are the actual deployed addresses on Stellar testnet. Testnet contracts ge
 | Resource | Value |
 |---|---|
 | Soroban RPC | `https://soroban-testnet.stellar.org` |
-| Horizon | `https://horizon-testnet.stellar.org` |
 | Friendbot | `https://friendbot.stellar.org` |
 
 
@@ -174,7 +173,6 @@ Auth format varies per protocol in ways that are not documented anywhere. This t
 | DeFindex | `Authorization: Bearer your-api-key` | Standard Bearer. Opposite of Etherfuse. |
 | AlfredPay | `api-key: <key>` + `api-secret: <secret>` | Two separate headers, not Bearer. |
 | Soroban RPC | Varies by provider | Some use Bearer, some use `X-API-Key` |
-| Horizon | None | IP rate limit: 3,600 req/hour per IP |
 | Soroswap | None | No auth required |
 | Phoenix | None | No auth required |
 | Aquarius | None | No auth required |
@@ -197,7 +195,6 @@ headers: {
 }
 ```
 
-**Horizon rate limiting note:** Streaming connections count against the 3,600 req/hour quota. If you're polling and streaming simultaneously, budget accordingly.
 
 
 ## Section 5: Critical Setup Gotchas
@@ -441,16 +438,16 @@ const signedXdr = result.signedTxXdr; // required in v6
 ```
 
 
-### Stellar: Soroban RPC and Horizon are separate — do not mix
+### Stellar: use Soroban RPC for everything
 
-Soroban smart contract calls go to `rpc.Server` (Soroban RPC). Classic operations (Payment, ChangeTrust, etc.) go to `Horizon.Server`. Routing a classic operation to Soroban RPC or vice versa silently fails. Passkey/smart wallet XLM transfers use the Soroban SAC; Freighter account transfers use classic Horizon.
+Use `rpc.Server` (Soroban RPC) as your primary server for all operations — smart contract calls, classic payments, ChangeTrust, account creation, and sequence numbers. SDK v14 supports submitting classic transactions through Soroban RPC directly. Routing operations to the wrong server silently fails, so default to RPC and stay there.
 
 | Need | Use |
 |---|---|
 | Smart contract calls (invoke, simulate, send) | Soroban RPC (`rpc.Server`) |
-| Classic payments, ChangeTrust, account creation | Horizon (`Horizon.Server`) |
-| Historical transaction lookup, payment streaming | Horizon (Soroban RPC has no history) |
-| Account sequence number | Either (both work) |
+| Classic payments, ChangeTrust, account creation | Soroban RPC (`rpc.Server`) |
+| Account sequence number | Soroban RPC (`rpc.Server`) |
+| Historical transaction lookup (if unavoidable) | Horizon (`Horizon.Server`) — last resort only |
 
 
 ### WebAuthn passkeys: rpId must be a domain, not an IP address

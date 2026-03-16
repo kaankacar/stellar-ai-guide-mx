@@ -80,7 +80,6 @@ Create a `CLAUDE.md` at your repo root with this content. Every Claude Code sess
 - Network passphrase: [Networks.TESTNET | Networks.PUBLIC]
 - RPC URL: [your RPC endpoint]
 - USDC issuer: [issuer address]
-- Horizon: [https://horizon-testnet.stellar.org | https://horizon.stellar.org]
 
 ## Protocol-specific notes
 ### Etherfuse
