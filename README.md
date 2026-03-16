@@ -1,4 +1,4 @@
-# Stellar Hackathon AI Guide
+# Hack+ Alebrije | CDMX 2026 — Developer Guide
 
 Mexico has one of the most active SPEI networks in the world, a massive remittance corridor with the US, and millions of people who move money through channels that are slow, expensive, or both. Stellar is built for exactly this, and this hackathon is a chance to build something that actually matters for people here.
 
