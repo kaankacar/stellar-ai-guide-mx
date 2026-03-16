@@ -75,6 +75,7 @@ A full mainnet DeFi dashboard integrating Blend (lending/borrowing with health f
 - [ai-soroswap-integration](https://github.com/carstenjacobsen/ai-soroswap-integration): Multi-DEX swap aggregator across Soroswap, Phoenix, Aqua, and SDEX
 - [ai-defindex-integration](https://github.com/carstenjacobsen/ai-defindex-integration): DeFindex yield vault deposits/withdrawals and dfToken balance tracking
 - [ai-passkeys-integration](https://github.com/carstenjacobsen/ai-passkeys-integration): WebAuthn passkey smart wallet with Etherfuse MXN ↔ CETES on/off-ramp
+- [ai-etherfuse-integration](https://github.com/carstenjacobsen/ai-etherfuse-integration): Full Etherfuse ramp (MXN ↔ MXNe) + DeFindex yield + Freighter wallet in one app
 
 **Community resources:**
 - Stellar Hackathon FAQ (briwylde08): https://github.com/briwylde08/stellar-hackathon-faq

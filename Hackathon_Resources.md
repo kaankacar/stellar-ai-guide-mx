@@ -110,6 +110,7 @@ Four focused reference apps built with Claude Code, each paired with a `BUILD_RE
 | [ai-soroswap-integration](https://github.com/carstenjacobsen/ai-soroswap-integration) | Multi-DEX swap aggregator routing across Soroswap, Phoenix, Aqua, and SDEX simultaneously |
 | [ai-defindex-integration](https://github.com/carstenjacobsen/ai-defindex-integration) | DeFindex yield vault deposits and withdrawals, dfToken balance, custom vault address support |
 | [ai-passkeys-integration](https://github.com/carstenjacobsen/ai-passkeys-integration) | WebAuthn passkey smart wallet with Etherfuse MXN ↔ CETES on/off-ramp |
+| [ai-etherfuse-integration](https://github.com/carstenjacobsen/ai-etherfuse-integration) | Full Etherfuse ramp integration (MXN ↔ MXNe) combined with DeFindex yield and Freighter wallet in a single three-tab app |
 
 
 ## 4. Ecosystem Discovery

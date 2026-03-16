@@ -259,6 +259,57 @@ After creating an order, wait 3-10 seconds before querying its status. Immediate
 Etherfuse only accepts classic Stellar addresses (G...). Passkey smart wallets use Soroban contract addresses (C...); if you're building with one, use a fee-payer G... address as the Etherfuse wallet identity instead.
 
 
+### Etherfuse: quoteAssets must be a tagged tuple array, not an object
+
+The quote endpoint requires `quoteAssets` in an undocumented "tagged tuple" array format. Sending the object shape shown in some docs returns 422.
+
+```typescript
+// Wrong — returns 422
+quoteAssets: { type: 'onramp', sourceAsset: 'MXN', targetAsset: contractAddress }
+
+// Correct
+quoteAssets: ["onramp", "MXN", contractAddress]
+```
+
+For offramp: `["offramp", contractAddress, "MXN"]`. For swap: `["swap", sourceContractAddress, targetContractAddress]`.
+
+
+### Etherfuse: POST /ramp/orders is read-only in sandbox
+
+The sandbox `POST /ramp/orders` ignores the request body and returns the same 3 pre-seeded orders every time — no new order is ever created. The response is a paginated list `{ items, totalItems, pageSize, ... }`, not a single created order.
+
+Workaround: snapshot the order list before posting, diff it after, and if no new `orderId` appears, build a synthetic pending order from the quote data (copy the CLABE from order history for payment instructions). In production the real API returns a genuine new order.
+
+
+### Etherfuse: quote response field names differ from docs
+
+The quote response uses `sourceAmount`/`destinationAmount`, not `fromAmount`/`toAmount` as the docs suggest. The `quoteAssets` sub-object uses `targetAsset`/`sourceAsset`. Normalize on read:
+
+```typescript
+fromAmount: Number(raw.fromAmount) || Number(raw.sourceAmount),
+toAmount: Number(raw.toAmount) || Number(raw.destinationAmount),
+```
+
+
+### Etherfuse: bankAccountId is only available from order list responses
+
+`bankAccountId` is not returned by the quote or onboarding endpoint — only from order list responses. Fetch the order list after onboarding and extract it from the first order. Store it for all subsequent order creation calls.
+
+
+### Etherfuse: /exchange-rate endpoint has a sandbox fallback
+
+`GET /exchange-rate` returns 404 in some sandbox configurations. The fallback `GET /ramp/exchange-rate` works. Try both in sequence before throwing.
+
+
+### Etherfuse: assets endpoint response shape varies
+
+`GET /ramp/assets` returns either a bare array or `{ assets: [...] }` depending on query parameters. Normalize on read:
+
+```typescript
+const list = Array.isArray(data) ? data : (data.assets || data.data || []);
+```
+
+
 ### Soroban: always simulate before sending
 
 ```typescript
