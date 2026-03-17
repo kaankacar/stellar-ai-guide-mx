@@ -64,6 +64,12 @@ These are the actual deployed addresses on Stellar testnet. Testnet contracts ge
 | Soroban RPC | `https://soroban-testnet.stellar.org` |
 | Friendbot | `https://friendbot.stellar.org` |
 
+### Stellar Testnet USDC & XLM SACs
+
+| Asset | Address |
+|---|---|
+| Circle USDC | `CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA` |
+| XLM | `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC` |
 
 ### DeFindex (testnet)
 
