@@ -140,10 +140,7 @@ Contract addresses are listed at https://reflector.network/oracles — use the m
 
 | Asset Code | Name | SAC Contract ID | Notes |
 |---|---|---|---|
-| CETES | Mexican CETES Bonds | TBD | Primary tested asset |
-| USTRY | US Treasury Notes | TBD | Verified on testnet |
-| KTB | Korean Treasury Bonds | TBD | Listed in testnet toml |
-| CARN | Brazilian Tesouro Bonds | TBD | Listed in testnet toml |
+| CETES | Mexican CETES Bonds | `CC72F57YTPX76HAA64JQOEGHQAPSADQWSY5DWVBR66JINPFDLNCQYHIC` | Primary tested asset |
 | CZERO | CETES Zero (0% APY) | TBD | Anchor asset = MXN |
 
 > SAC contract IDs can be derived from the issuer + asset code using the Stellar SDK: `Contract.fromAsset(asset, networkPassphrase)`. Ask a mentor or check Stellar Lab for pre-computed addresses.
