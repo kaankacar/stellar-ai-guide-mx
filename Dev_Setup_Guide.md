@@ -9,10 +9,9 @@
 
 | Protocol | Key Required | How to Get | Wait | Contact |
 |---|---|---|---|---|
-| Etherfuse | Yes | Ask the Etherfuse team or DevRel mentor | Before hackathon | Etherfuse team / DevRel |
+| Etherfuse | Yes | [Visit this link](https://devnet.etherfuse.com/ramp) | Before hackathon | Etherfuse team / DevRel |
 | DeFindex | Yes | Self-service via docs | Instant | https://docs.defindex.io/api-integration-guide/api#generate-your-api-key |
 | Soroswap | No | -- | -- | -- |
-| Phoenix | No | -- | -- | -- |
 | Aquarius | No | -- | -- | -- |
 | Blend | No | -- | -- | -- |
 | Reflector Oracle | No | -- | -- | -- |
@@ -65,6 +64,12 @@ These are the actual deployed addresses on Stellar testnet. Testnet contracts ge
 | Soroban RPC | `https://soroban-testnet.stellar.org` |
 | Friendbot | `https://friendbot.stellar.org` |
 
+### Stellar Testnet USDC & XLM SACs
+
+| Asset | Address |
+|---|---|
+| Circle USDC | `CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA` |
+| XLM | `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC` |
 
 ### DeFindex (testnet)
 
@@ -75,6 +80,8 @@ Verified from the paltalabs registry.
 | Factory | `CDSCWE4GLNBYYTES2OCYDFQA2LLY4RBIAX6ZI32VSUXD7GO6HRPO4A32` | Yes |
 | USDC vault | `CBMVK2JK6NTOT2O4HNQAIQFJY232BHKGLIMXDVQVHIIZKDACXDFZDWHN` | Yes |
 | XLM vault | `CCLV4H7WTLJQ7ATLHBBQV2WW3OINF3FOY5XZ7VPHZO7NH3D2ZS4GFSF6` | Yes |
+| CETES vault | `CBIS5TEMTNNOTBE3WXPQUAGUEDYZZVIWAKTXEQCOUJ34OJJ3FJ5NLF2P` | Yes |
+| CETES Blend strategy | `CCP4RBDWPRNO2LWO23XFU4BBLGA73J5N3BK7EHRJUHVN33YEMMFB2MBE` | Yes |
 
 **Verification note:** Run 1 (wrong addresses) got `Error(Storage, MissingValue)`. Run 2 (paltalabs addresses above) got `Error(WasmVm, InvalidAction)`, meaning the contract IS deployed and running; the error was a call-level issue, not an address issue.
 
@@ -89,17 +96,6 @@ Verified from the paltalabs registry.
 | Factory | `CDP3HMUH6SMS3S7NPGNDJLULCOXXEPSHY4JKUKMBNQMATHDHWXRRJTBY` |
 
 Source: https://github.com/soroswap/core/blob/main/public/testnet.contracts.json
-
-
-### Phoenix (testnet)
-
-| Contract | Address |
-|---|---|
-| Factory | TBD |
-| Router | TBD |
-
-> Verified addresses will be added here as soon as they're confirmed.
-
 
 ### Blend (testnet)
 
@@ -150,10 +146,7 @@ Contract addresses are listed at https://reflector.network/oracles — use the m
 
 | Asset Code | Name | SAC Contract ID | Notes |
 |---|---|---|---|
-| CETES | Mexican CETES Bonds | TBD | Primary tested asset |
-| USTRY | US Treasury Notes | TBD | Verified on testnet |
-| KTB | Korean Treasury Bonds | TBD | Listed in testnet toml |
-| CARN | Brazilian Tesouro Bonds | TBD | Listed in testnet toml |
+| CETES | Mexican CETES Bonds | `CC72F57YTPX76HAA64JQOEGHQAPSADQWSY5DWVBR66JINPFDLNCQYHIC` | Primary tested asset |
 | CZERO | CETES Zero (0% APY) | TBD | Anchor asset = MXN |
 
 > SAC contract IDs can be derived from the issuer + asset code using the Stellar SDK: `Contract.fromAsset(asset, networkPassphrase)`. Ask a mentor or check Stellar Lab for pre-computed addresses.
