@@ -564,6 +564,14 @@ export ANTHROPIC_API_KEY="your-openrouter-key"
 claude --model openrouter/hunter-alpha
 ```
 
+Other free models on OpenRouter follow the same pattern using the `:free` suffix:
+
+```bash
+claude --model meta-llama/llama-3.3-70b-instruct:free
+```
+
+The full list of free models is at https://openrouter.ai/models?q=free. Any model with `:free` in the ID works with the same `ANTHROPIC_BASE_URL` config above.
+
 Sign up for a free OpenRouter account at https://openrouter.ai — no credit card required for free models.
 
 > Privacy note: Prompts and completions are logged by the provider. Don't use Hunter Alpha (or any free cloud model) for sensitive or proprietary code. For that, use local Ollama or a paid plan.
