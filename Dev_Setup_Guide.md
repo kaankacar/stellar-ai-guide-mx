@@ -264,11 +264,17 @@ quoteAssets: ["onramp", "MXN", contractAddress]
 For offramp: `["offramp", contractAddress, "MXN"]`. For swap: `["swap", sourceContractAddress, targetContractAddress]`.
 
 
-### Etherfuse: POST /ramp/orders is read-only in sandbox
+### Etherfuse: order creation is POST /ramp/order (singular), not /ramp/orders
 
-The sandbox `POST /ramp/orders` ignores the request body and returns the same 3 pre-seeded orders every time — no new order is ever created. The response is a paginated list `{ items, totalItems, pageSize, ... }`, not a single created order.
+The list endpoint (`GET /ramp/orders`, plural) also accepts POST and always returns the paginated order list regardless of the request body. Hitting `POST /ramp/orders` by mistake looks like the sandbox is ignoring your request — it isn't. The create endpoint is `POST /ramp/order` (singular).
 
-Workaround: snapshot the order list before posting, diff it after, and if no new `orderId` appears, build a synthetic pending order from the quote data (copy the CLABE from order history for payment instructions). In production the real API returns a genuine new order.
+```
+POST /ramp/order   ← creates a new order (singular)
+GET  /ramp/orders  ← paginated list (plural)
+POST /ramp/orders  ← also returns paginated list, ignores body — wrong endpoint
+```
+
+The create endpoint requires `orderId`, `bankAccountId`, `cryptoWalletId`, and `quoteId`.
 
 
 ### Etherfuse: quote response field names differ from docs
