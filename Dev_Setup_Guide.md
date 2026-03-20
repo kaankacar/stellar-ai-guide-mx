@@ -5,11 +5,11 @@
 
 ## Section 1: API Keys and Credentials
 
-**Get your Etherfuse key before the hackathon.** Etherfuse has no self-service portal. If you haven't gotten a key before the event starts, find the Etherfuse team or a DevRel mentor — don't assume someone can provision one on the spot. The other protocols below all support self-service signup.
+**Get your Etherfuse key before writing any code.** Sign up at https://devnet.etherfuse.com/ramp — it's self-service. Takes a few minutes. All other protocols below are also self-service or require no key at all.
 
 | Protocol | Key Required | How to Get | Wait | Contact |
 |---|---|---|---|---|
-| Etherfuse | Yes | [Visit this link](https://devnet.etherfuse.com/ramp) | Before hackathon | Etherfuse team / DevRel |
+| Etherfuse | Yes | Self-service at https://devnet.etherfuse.com/ramp | Minutes | -- |
 | DeFindex | Yes | Self-service via docs | Instant | https://docs.defindex.io/api-integration-guide/api#generate-your-api-key |
 | Soroswap | No | -- | -- | -- |
 | Aquarius | No | -- | -- | -- |
@@ -454,7 +454,7 @@ These are things that don't work smoothly yet or aren't documented. If you hit a
 
 ### Things that still need manual help
 
-- **Etherfuse sandbox key:** no self-service signup. If you don't have a key before the hackathon, find the Etherfuse team or a DevRel mentor. Don't assume anyone can provision one on the spot — sort this before the event.
+- **Etherfuse sandbox key:** self-service at https://devnet.etherfuse.com/ramp. Takes a few minutes.
 - **Testnet CETES balance:** use the Etherfuse onramp flow to mint testnet CETES. The sandbox auto-approves and mints directly to your wallet. This IS the faucet. See Section 3.
 
 ### Things the docs don't cover (save yourself the debugging time)

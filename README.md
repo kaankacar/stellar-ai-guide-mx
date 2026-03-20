@@ -41,7 +41,7 @@ The fastest way to avoid the most common Claude mistake at a hackathon: building
 
 Everything you need before writing code, in one place.
 
-**API keys:** Etherfuse has no self-service signup — get this done before the hackathon or find the Etherfuse team at the event. DeFindex, AlfredPay, and BlindPay all have self-service signup (see Dev_Setup_Guide.md Section 1). Soroswap, Phoenix, Aquarius, and Blend require no key.
+**API keys:** All protocols that require a key have self-service signup. Etherfuse: https://devnet.etherfuse.com/ramp. DeFindex, AlfredPay, and BlindPay: see Dev_Setup_Guide.md Section 1. Soroswap, Phoenix, Aquarius, and Blend require no key.
 
 **Testnet contract addresses:** Verified DeFindex, Soroswap, and Blend addresses are included. Aquarius and Reflector Oracle link to their live registries. Phoenix is the only protocol still TBD.
 
@@ -60,7 +60,7 @@ Everything you need before writing code, in one place.
 - DeFindex: classic Stellar assets must be SAC-deployed before depositing into vaults (all common ones already are)
 - DeFindex: the endpoint is `/vault/` not `/vaults/`, amounts are always arrays, success is HTTP 201
 
-**Section 6** covers known limitations and what to ask your DevRel mentor about, including which things have no self-service path yet and which API behaviors are just reality.
+**Section 6** covers known limitations and what to ask your DevRel mentor about, including undocumented API behaviors and known quirks.
 
 ## Hackathon_Resources.md
 

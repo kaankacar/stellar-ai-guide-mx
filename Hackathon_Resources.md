@@ -19,7 +19,7 @@ Everything you need before writing a line of code. For the full reference (API k
 
 ### API Keys to Get Early
 
-- **Etherfuse sandbox key:** https://devnet.etherfuse.com (no self-service; contact the Etherfuse team or a DevRel mentor before the hackathon)
+- **Etherfuse sandbox key:** self-service at https://devnet.etherfuse.com/ramp
 - **Soroswap:** no key needed on testnet
 - **DeFindex:** self-service signup at https://docs.defindex.io/api-integration-guide/api#generate-your-api-key
 - **BlindPay / AlfredPay:** check their respective docs for sandbox access
