@@ -564,10 +564,18 @@ export ANTHROPIC_API_KEY="your-openrouter-key"
 claude --model openrouter/hunter-alpha
 ```
 
-Other free models on OpenRouter follow the same pattern using the `:free` suffix:
+Other free models on OpenRouter follow the same `:free` suffix pattern. Notable options for coding:
+
+| Model ID | Params | Context |
+|---|---|---|
+| `meta-llama/llama-3.3-70b-instruct:free` | 70B | 131K |
+| `nvidia/nemotron-3-super-120b-a12b:free` | 120B | 262K — strong on SWE-Bench |
+| `nvidia/nemotron-3-nano-30b-a3b:free` | 30B | 256K |
+| `arcee-ai/trinity-large-preview:free` | large | 131K |
+| `minimax/minimax-m2.5:free` | large | 196K |
 
 ```bash
-claude --model meta-llama/llama-3.3-70b-instruct:free
+claude --model nvidia/nemotron-3-super-120b-a12b:free
 ```
 
 The full list of free models is at https://openrouter.ai/models?q=free. Any model with `:free` in the ID works with the same `ANTHROPIC_BASE_URL` config above.
