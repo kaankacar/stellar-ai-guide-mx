@@ -207,26 +207,21 @@ You assign both IDs yourself (they're UUIDs you generate). Etherfuse binds them 
 The `create customer` and `create bank account` requests will fail if the public key (G... address) was already registered in a previous call — even in sandbox. If you're re-running your setup flow, reuse the same `customer_id` and `bankAccountId` rather than trying to re-register.
 
 
-### Etherfuse: quotes support an optional swap
+### Etherfuse: quote endpoint is POST with three direction types
 
-The `GET /ramp/quote` endpoint accepts a `swap` parameter that lets you request a conversion as part of the quote (e.g., CETES to USDC in one step). Not all flows require this, but it exists. Reference: https://docs.etherfuse.com/api-reference/quotes/get-quote-for-conversion
+`POST /ramp/quote` accepts three directions via `quoteAssets.type`: `onramp` (MXN → crypto), `offramp` (crypto → MXN), and `swap` (crypto → crypto, Stellar and Solana only). Swap target must be a stablebond; source is typically USDC.
 
 
-### Etherfuse: order response fields are inconsistent
+### Etherfuse: response bodies are snake_case, request bodies are camelCase
 
-- Onramp response shape: `{ onramp: { orderId, depositClabe } }`
-- Offramp response shape: `{ offramp: { orderId, withdrawalClabe } }`
-- Sometimes flat, sometimes wrapped
-- `orderId` vs `order_id` vs `id` all appear across different endpoints
+API responses use `snake_case` (`presigned_url`, `bank_account_id`, `exchange_rate`). Request bodies use `camelCase` (`bankAccountId`, `quoteId`, `sourceAmount`). This is consistent throughout the API but easy to miss when reading responses and building requests side by side.
 
-Write a normalizer:
+### Etherfuse: onramp and offramp order response shapes differ
 
-```typescript
-// Unwrap envelope
-const data = raw.onramp || raw.offramp || raw;
-// Normalize ID field
-const id = data.orderId || data.id || data.order_id;
-```
+- Onramp: response includes `depositClabe` — the CLABE where the user sends MXN via SPEI
+- Offramp: response does NOT include a CLABE. It includes `burnTransaction` (pre-built unsigned XDR) and `statusPage`. The burn transaction must be signed with the user's wallet and submitted to Stellar. Do not build a custom burn transaction — always use the one Etherfuse provides.
+
+In sandbox, the offramp `burnTransaction` may not appear immediately in the creation response. Poll `GET /ramp/order/{id}` until it appears.
 
 
 ### Etherfuse sandbox: simulate fiat manually
@@ -249,19 +244,20 @@ After creating an order, wait 3-10 seconds before querying its status. Immediate
 Etherfuse only accepts classic Stellar addresses (G...). Passkey smart wallets use Soroban contract addresses (C...); if you're building with one, use a fee-payer G... address as the Etherfuse wallet identity instead.
 
 
-### Etherfuse: quoteAssets must be a tagged tuple array, not an object
-
-The quote endpoint requires `quoteAssets` in an undocumented "tagged tuple" array format. Sending the object shape shown in some docs returns 422.
+### Etherfuse: quoteAssets is an object with a type discriminator
 
 ```typescript
-// Wrong — returns 422
-quoteAssets: { type: 'onramp', sourceAsset: 'MXN', targetAsset: contractAddress }
+// Onramp (MXN → crypto)
+quoteAssets: { type: 'onramp', sourceAsset: 'MXN', targetAsset: 'CETES:GC3CW7...' }
 
-// Correct
-quoteAssets: ["onramp", "MXN", contractAddress]
+// Offramp (crypto → MXN)
+quoteAssets: { type: 'offramp', sourceAsset: 'CETES:GC3CW7...', targetAsset: 'MXN' }
+
+// Swap (crypto → crypto, Stellar/Solana only)
+quoteAssets: { type: 'swap', sourceAsset: 'USDC:GA5ZS...', targetAsset: 'CETES:GC3CW7...' }
 ```
 
-For offramp: `["offramp", contractAddress, "MXN"]`. For swap: `["swap", sourceContractAddress, targetContractAddress]`.
+Stellar assets use `CODE:ISSUER` format. The `blockchain` field is also required in the quote request.
 
 
 ### Etherfuse: order creation is POST /ramp/order (singular), not /ramp/orders
@@ -277,24 +273,40 @@ POST /ramp/orders  ← also returns paginated list, ignores body — wrong endpo
 The create endpoint requires `orderId`, `bankAccountId`, `cryptoWalletId`, and `quoteId`.
 
 
-### Etherfuse: quote response field names differ from docs
+### Etherfuse: quote response uses sourceAmount/destinationAmount
 
-The quote response uses `sourceAmount`/`destinationAmount`, not `fromAmount`/`toAmount` as the docs suggest. The `quoteAssets` sub-object uses `targetAsset`/`sourceAsset`. Normalize on read:
+The quote response uses `sourceAmount` and `destinationAmount` (not `fromAmount`/`toAmount`). It also includes `exchangeRate`, `feeBps`, `feeAmount`, `expiresAt`, and `requiresSwap`. Normalize on read if you're abstracting multiple providers:
 
 ```typescript
 fromAmount: Number(raw.fromAmount) || Number(raw.sourceAmount),
 toAmount: Number(raw.toAmount) || Number(raw.destinationAmount),
 ```
 
+### Etherfuse: exchange rates are available via a public endpoint
 
-### Etherfuse: bankAccountId is only available from order list responses
+`GET /lookup/exchange_rate` (no auth required) returns USD conversion rates for all supported currencies. The response has a multi-source structure — each rate is aggregated from several providers and the top-level `rate` field is the final aggregated value.
 
-`bankAccountId` is not returned by the quote or onboarding endpoint — only from order list responses. Fetch the order list after onboarding and extract it from the first order. Store it for all subsequent order creation calls.
+### Etherfuse: Etherfuse validates trustlines before creating an order
 
+If the destination wallet has no trustline for the target asset, `POST /ramp/order` returns a clear error: "Your wallet does not have a trustline for [ASSET]. Please add a trustline before creating this order." Set up trustlines before calling order creation, not after getting this error.
 
-### Etherfuse: /exchange-rate endpoint has a sandbox fallback
+### Etherfuse: sandbox onramp limit is 500 MXN
 
-`GET /exchange-rate` returns 404 in some sandbox configurations. The fallback `GET /ramp/exchange-rate` works. Try both in sequence before throwing.
+Onramp quotes with `sourceAmount` above 500 MXN return `SandboxAmountExceeded`. Use amounts of 500 or less when testing.
+
+### Etherfuse: duplicate order constraint
+
+Only one open order is allowed per bank account + amount combination. Creating a duplicate returns an error. Cancel the existing order first via `POST /ramp/order/{id}/cancel` (only works on orders in `created` status).
+
+### Etherfuse: expired transactions can be regenerated
+
+If an offramp `burnTransaction` expires before the user signs it, call `POST /ramp/order/{order_id}/regenerate_tx`. It returns HTTP 202 immediately — the new transaction is delivered asynchronously via the `order_updated` webhook.
+
+### Etherfuse: KYC sandbox auto-approve requires signing all three agreements
+
+Submitting KYC data programmatically puts the customer in `proposed` state, not `approved`. In sandbox, auto-approval only triggers after the customer signs all three agreements via the presigned onboarding URL: electronic signature → terms and conditions → customer agreement. If you're testing the full flow, complete the onboarding URL step.
+
+For integration testing without full KYC, register a wallet with `claimOwnership: true` — this links the wallet's KYC to your organization's KYB status and auto-approves it immediately.
 
 
 ### Etherfuse: assets endpoint response shape varies
