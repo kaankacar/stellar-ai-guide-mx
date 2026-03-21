@@ -10,7 +10,7 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 **Building with Mexican peso rails?** The regional starter pack (`Hackathon_Resources.md`) is the fastest path. It has Etherfuse (MXN to CETES via SPEI), AlfredPay (MXN to USDC via SPEI), and BlindPay already wired up as a portable TypeScript library you can drop into any Node project. Before you use Etherfuse, read its section in `Dev_Setup_Guide.md`. There are several non-obvious gotchas (auth format, customer_id permanence, sandbox simulation) that have cost developers hours.
 
-**Don't have a paid AI subscription?** Start with `Free_AI_Setup.md`. The fastest path is Hunter Alpha via OpenRouter — a 1T+ parameter model with a 1M context window, completely free, released March 2026. The guide also covers Groq (Llama 3.1 8B at 14,400 req/day), Mistral Codestral (2,000 req/day, code-optimized), Google AI Studio, and a table of providers offering free trial credits ($1-$5). If you'd rather run models locally, it covers six open-source models via Ollama and how to rent a GPU server on RunPod or Vast.ai for a few dollars.
+**Don't have a paid AI subscription?** Start with `Free_AI_Setup.md`. The fastest path is NVIDIA Nemotron 3 Super via OpenRouter — a 120B parameter model with a 262K context window, strong on SWE-Bench, completely free. The guide also covers Groq (Llama 3.1 8B at 14,400 req/day), Mistral Codestral (2,000 req/day, code-optimized), Google AI Studio, and a table of providers offering free trial credits ($1-$5). If you'd rather run models locally, it covers six open-source models via Ollama and how to rent a GPU server on RunPod or Vast.ai for a few dollars.
 
 **About to write code?** Read `Dev_Setup_Guide.md` first. Five minutes here saves hours later.
 
@@ -136,7 +136,7 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 
 ## Free_AI_Setup.md
 
-**Best free cloud option:** Hunter Alpha via OpenRouter — 1T+ params, 1M context window, $0/token, released March 2026. Designed for agentic workflows. Works directly with Claude Code (`claude --model openrouter/hunter-alpha`). No credit card required.
+**Best free cloud option:** NVIDIA Nemotron 3 Super via OpenRouter — 120B params, 262K context window, $0/token, strong on SWE-Bench. Works directly with Claude Code (`claude --model nvidia/nemotron-3-super-120b-a12b:free`). No credit card required.
 
 **Other free cloud APIs (no credit card):** Groq (Llama 3.1 8B at 14,400 req/day — fastest), Mistral Codestral (2,000 req/day, code-optimized), Google AI Studio (Gemini 2.5 Flash, 1M ctx), Cerebras, GitHub Models. All have Claude Code config snippets in the guide.
 

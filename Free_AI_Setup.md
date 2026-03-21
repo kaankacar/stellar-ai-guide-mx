@@ -545,23 +545,22 @@ To avoid charges, go to the RunPod dashboard and stop or terminate your pod when
 If you don't want to set up a local model or a VPS, there are several free cloud AI options — including one that rivals the best paid models available today.
 
 
-### 5a. Hunter Alpha — best free cloud model right now
+### 5a. NVIDIA Nemotron 3 Super — best free cloud model right now
 
-Hunter Alpha is a 1 trillion+ parameter model released on March 11, 2026, available for free through OpenRouter. It has a 1,048,576-token (1M+) context window, meaning it can hold an entire codebase at once. It was designed for agentic workflows, long-horizon planning, and complex multi-step reasoning — exactly what Claude Code needs.
+NVIDIA Nemotron 3 Super is a 120B parameter model available for free through OpenRouter. It has a 262,144-token context window and delivers leading results on SWE-Bench Verified (real-world coding tasks), TerminalBench, and AIME 2025. Model page: https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b:free
 
 **Key facts:**
-- Provider: OpenRouter (model ID: `openrouter/hunter-alpha`)
-- Parameters: 1 trillion+
-- Context window: 1,048,576 tokens
+- Provider: OpenRouter (model ID: `nvidia/nemotron-3-super-120b-a12b:free`)
+- Parameters: 120B
+- Context window: 262,144 tokens
 - Cost: $0 per million input tokens, $0 per million output tokens
-- Designed for: Agentic workflows, long-horizon planning, complex multi-step reasoning
-- Visible reasoning: Shows its internal reasoning steps
+- Strong on: SWE-Bench Verified, TerminalBench, complex reasoning
 
 **Claude Code config:**
 ```bash
 export ANTHROPIC_BASE_URL="https://openrouter.ai/api/v1"
 export ANTHROPIC_API_KEY="your-openrouter-key"
-claude --model openrouter/hunter-alpha
+claude --model nvidia/nemotron-3-super-120b-a12b:free
 ```
 
 Other free models on OpenRouter follow the same `:free` suffix pattern. Notable options for coding:
@@ -569,27 +568,22 @@ Other free models on OpenRouter follow the same `:free` suffix pattern. Notable 
 | Model ID | Params | Context |
 |---|---|---|
 | `meta-llama/llama-3.3-70b-instruct:free` | 70B | 131K |
-| `nvidia/nemotron-3-super-120b-a12b:free` | 120B | 262K — strong on SWE-Bench |
 | `nvidia/nemotron-3-nano-30b-a3b:free` | 30B | 256K |
 | `arcee-ai/trinity-large-preview:free` | large | 131K |
 | `minimax/minimax-m2.5:free` | large | 196K |
-
-```bash
-claude --model nvidia/nemotron-3-super-120b-a12b:free
-```
 
 The full list of free models is at https://openrouter.ai/models?q=free. Any model with `:free` in the ID works with the same `ANTHROPIC_BASE_URL` config above.
 
 Sign up for a free OpenRouter account at https://openrouter.ai — no credit card required for free models.
 
-> Privacy note: Prompts and completions are logged by the provider. Don't use Hunter Alpha (or any free cloud model) for sensitive or proprietary code. For that, use local Ollama or a paid plan.
+> Privacy note: Prompts and completions are logged by the provider. Don't use these free cloud models for sensitive or proprietary code. For that, use local Ollama or a paid plan.
 
 
 ### 5b. Free cloud APIs — no credit card required
 
 | Provider | Best models for coding | Free limits | Signup |
 |---|---|---|---|
-| **OpenRouter** | Hunter Alpha (1T params), Llama 3.3 70B, Mistral Small 24B, Qwen3, Gemma 3 27B | 20 req/min, 50 req/day (1,000/day with $10 lifetime topup) | https://openrouter.ai |
+| **OpenRouter** | Nemotron 3 Super 120B, Llama 3.3 70B, Mistral Small 24B, Qwen3, Gemma 3 27B | 20 req/min, 50 req/day (1,000/day with $10 lifetime topup) | https://openrouter.ai |
 | **Groq** | Llama 3.1 8B (14,400 req/day), Llama 3.3 70B (1,000/day), Llama 4 Scout (1,000/day, 30K tok/min) | Generous daily limits per model | https://console.groq.com |
 | **Google AI Studio** | Gemini 2.5 Flash (1M ctx), Gemma 3 (1B-27B) | 20-500 req/day depending on model, 250K tokens/min | https://aistudio.google.com |
 | **Mistral Codestral** | Codestral (purpose-built for code) | 30 req/min, 2,000 req/day | https://console.mistral.ai |
@@ -720,7 +714,7 @@ For general programming questions, use one of the open-source models described i
 
 | Situation | Recommended Tool |
 |-----------|-----------------|
-| Best free model, period | Hunter Alpha via OpenRouter (1T params, 1M context, free) |
+| Best free model, period | NVIDIA Nemotron 3 Super via OpenRouter (120B, 262K context, free) |
 | Stellar-specific questions | Stella (developers.stellar.org) |
 | Best free for coding specifically | Mistral Codestral (2,000 req/day, code-optimized) |
 | Fastest free inference | Groq — Llama 3.1 8B (14,400 req/day) |
@@ -729,7 +723,7 @@ For general programming questions, use one of the open-source models described i
 | Want the best possible local model | Rent RunPod GPU, run Qwen2.5-Coder-32B |
 | Just want something that works now | Cursor free tier or Google AI Studio |
 | Using Claude Code for free (local) | Llama 3.1 8B via Ollama (best tool-call compatibility) |
-| Using Claude Code for free (cloud) | Hunter Alpha via OpenRouter |
+| Using Claude Code for free (cloud) | NVIDIA Nemotron 3 Super via OpenRouter |
 
 
 *Document prepared by the Stellar Development Foundation for hackathon participants.*
