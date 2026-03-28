@@ -23,7 +23,7 @@ Everything you need before writing a line of code. For the full reference (API k
 - **Soroswap:** no key needed on testnet
 - **DeFindex:** self-service signup at https://docs.defindex.io/api-integration-guide/api#generate-your-api-key
 - **BlindPay / AlfredPay:** check their respective docs for sandbox access
-- **Trustless Work:** self-service https://docs.trustlesswork.com/trustless-work/introduction/developer-resources/request-api-key
+- **Trustless Work:** self-service at https://docs.trustlesswork.com/trustless-work/introduction/developer-resources/request-api-key
 
 ### Things Worth Knowing Upfront
 
