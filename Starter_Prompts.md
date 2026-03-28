@@ -97,7 +97,7 @@ Create a `CLAUDE.md` at your repo root with this content. Every Claude Code sess
 
 ### Trustless Work
 - Auth header: `Authorization: x-api-key: your-api-key`
-- API URL: [mainnet: api.trustlesswork.com | dev.api.trustlesswork.com]
+- API URL: [mainnet: https://api.trustlesswork.com | dev: https://dev.api.trustlesswork.com]
 
 ## Wallet architecture
 [Delete this section if not building a self-custodial wallet]
