@@ -187,7 +187,7 @@ Auth format varies per protocol in ways that are not documented anywhere. This t
 | Soroswap | None | No auth required |
 | Phoenix | None | No auth required |
 | Aquarius | None | No auth required |
-| Trustless Work | `Authorization: x-api-key: your-api-key` | NO "Bearer" prefix. Raw key only. |
+| Trustless Work | `x-api-key: your-api-key` | NO "Bearer" prefix. Raw key only. |
 
 ### Etherfuse (correct)
 
