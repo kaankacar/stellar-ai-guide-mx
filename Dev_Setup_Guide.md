@@ -58,7 +58,7 @@ Public sandbox credentials from the AlfredPay docs — shared and intended for a
 
 - **React SDK env var (client):** `NEXT_PUBLIC_TRUSTLESS_WORK_API_KEY`
 - **Server env var (Node / headers):** `TRUSTLESS_WORK_API_KEY`
-- **Auth:** `Authorization: x-api-key: your-api-key`
+- **Auth:** `x-api-key: your-api-key`
 - **Self-service signup:** https://docs.trustlesswork.com/trustless-work/introduction/developer-resources/request-api-key
 
 
