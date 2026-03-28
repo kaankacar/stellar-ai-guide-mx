@@ -45,7 +45,7 @@ Everything you need before writing code, in one place.
 
 **Testnet contract addresses:** Verified DeFindex, Soroswap, Blend and Trustless Work addresses are included. Aquarius and Reflector Oracle link to their live registries. Phoenix is the only protocol still TBD.
 
-**Auth patterns:** This is where most developers lose time. Etherfuse uses `Authorization: your-api-key` with no Bearer prefix. DeFindex uses `Authorization: Bearer your-api-key`. Trustless Work uses `x-api-key: your-api-key`. They're opposites and none are documented clearly. The guide has correct code snippets for all three.
+**Auth patterns:** This is where most developers lose time. Etherfuse uses `Authorization: your-api-key` with no Bearer prefix. DeFindex uses `Authorization: Bearer your-api-key`. Trustless Work uses `Authorization: x-api-key: your-api-key`. They're opposites and none are documented clearly. The guide has correct code snippets for all three.
 
 **Testnet asset registry:** Testnet USDC has multiple issuers that don't share liquidity; pick the wrong one and swaps silently fail. The guide covers all three (Circle, Blend, and Etherfuse — each separate), plus all five Etherfuse stablebond assets (CETES, USTRY, KTB, CARN, CZERO) with their testnet and mainnet issuer addresses.
 
