@@ -96,7 +96,7 @@ Create a `CLAUDE.md` at your repo root with this content. Every Claude Code sess
 - Endpoint is /vault/ not /vaults/; amounts are always arrays; success is HTTP 201
 
 ### Trustless Work
-- Auth header: `Authorization: x-api-key: your-api-key`
+- Auth header: `x-api-key: your-api-key`
 - API URL: [mainnet: https://api.trustlesswork.com | dev: https://dev.api.trustlesswork.com]
 
 ## Wallet architecture
