@@ -95,6 +95,10 @@ Create a `CLAUDE.md` at your repo root with this content. Every Claude Code sess
 - Classic Stellar assets must be SAC-deployed before depositing into vaults (all common ones already are)
 - Endpoint is /vault/ not /vaults/; amounts are always arrays; success is HTTP 201
 
+### Trustless Work
+- Auth header: `x-api-key: your-api-key`
+- API URL: [mainnet: https://api.trustlesswork.com | dev: https://dev.api.trustlesswork.com]
+
 ## Wallet architecture
 [Delete this section if not building a self-custodial wallet]
 - Self-custodial: generates BIP-39 mnemonic in-browser, no browser extension

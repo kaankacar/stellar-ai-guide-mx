@@ -41,11 +41,11 @@ The fastest way to avoid the most common Claude mistake at a hackathon: building
 
 Everything you need before writing code, in one place.
 
-**API keys:** All protocols that require a key have self-service signup. Etherfuse: https://devnet.etherfuse.com/ramp. DeFindex, AlfredPay, and BlindPay: see Dev_Setup_Guide.md Section 1. Soroswap, Phoenix, Aquarius, and Blend require no key.
+**API keys:** All protocols that require a key have self-service signup. Etherfuse: https://devnet.etherfuse.com/ramp. DeFindex, AlfredPay, BlindPay and Trustless Work: see Dev_Setup_Guide.md Section 1. Soroswap, Phoenix, Aquarius, and Blend require no key.
 
-**Testnet contract addresses:** Verified DeFindex, Soroswap, and Blend addresses are included. Aquarius and Reflector Oracle link to their live registries. Phoenix is the only protocol still TBD.
+**Testnet contract addresses:** Verified DeFindex, Soroswap, Blend and Trustless Work addresses are included. Aquarius and Reflector Oracle link to their live registries. Phoenix is the only protocol still TBD.
 
-**Auth patterns:** This is where most developers lose time. Etherfuse uses `Authorization: your-api-key` with no Bearer prefix. DeFindex uses `Authorization: Bearer your-api-key`. They're opposites and neither is documented clearly. The guide has correct code snippets for both.
+**Auth patterns:** This is where most developers lose time. Etherfuse uses `Authorization: your-api-key` with no Bearer prefix. DeFindex uses `Authorization: Bearer your-api-key`. Trustless Work uses `Authorization: x-api-key: your-api-key`. They're opposites and none are documented clearly. The guide has correct code snippets for all three.
 
 **Testnet asset registry:** Testnet USDC has multiple issuers that don't share liquidity; pick the wrong one and swaps silently fail. The guide covers all three (Circle, Blend, and Etherfuse — each separate), plus all five Etherfuse stablebond assets (CETES, USTRY, KTB, CARN, CZERO) with their testnet and mainnet issuer addresses.
 
@@ -59,6 +59,10 @@ Everything you need before writing code, in one place.
 - `sendTransaction` returns PENDING, not success: you need to poll (or use `rpc.Server.pollTransaction`)
 - DeFindex: classic Stellar assets must be SAC-deployed before depositing into vaults (all common ones already are)
 - DeFindex: the endpoint is `/vault/` not `/vaults/`, amounts are always arrays, success is HTTP 201
+- Trustless Work: Each role involved must establish a trustline for the asset being used to create the escrow before the escrow is initialized.
+- Trustless Work: The platform role is the only role authorized to modify the escrow at any time. However, once the escrow holds a balance, modifications are restricted exclusively to adding milestones, and no other properties can be updated.
+- Trustless Work: The trustline address must be the issuer address (starting with 'G'), not the contract ID.
+- Trustless Work: The dispute resolver address must be unique.
 
 **Section 6** covers known limitations and what to ask your DevRel mentor about, including undocumented API behaviors and known quirks.
 

@@ -17,6 +17,7 @@
 | Reflector Oracle | No | -- | -- | -- |
 | BlindPay | Yes (sandbox) | Self-service at app.blindpay.com | Instant | https://app.blindpay.com |
 | AlfredPay | Yes (sandbox) | Public sandbox keys in docs | Instant | See below |
+| Trustless Work | Yes | Self-service via docs | Instant | https://docs.trustlesswork.com/trustless-work/introduction/developer-resources/request-api-key |
 
 
 ### Etherfuse
@@ -51,6 +52,14 @@ Public sandbox credentials from the AlfredPay docs — shared and intended for a
 1. Sign up at https://app.blindpay.com
 2. Create a free "Development instance"
 3. Generate API keys for that instance
+
+
+### Trustless Work
+
+- **React SDK env var (client):** `NEXT_PUBLIC_TRUSTLESS_WORK_API_KEY`
+- **Server env var (Node / headers):** `TRUSTLESS_WORK_API_KEY`
+- **Auth:** `x-api-key: your-api-key`
+- **Self-service signup:** https://docs.trustlesswork.com/trustless-work/introduction/developer-resources/request-api-key
 
 
 ## Section 2: Testnet Contract Addresses
@@ -121,6 +130,15 @@ Aquarius does not publish a static contract address list. Use the testnet app to
 Contract addresses are listed at https://reflector.network/oracles — use the mainnet/testnet toggle in the upper-right.
 
 
+### Trustless Work (testnet)
+
+Verified from the Trustless Work registry.
+
+| Contract | Address | Verified |
+|---|---|---|
+| multi-release Escrow | `CB7EYMEHZI3UWS3EHNOUI55OD6X5FLMV537NEUQ6EWO677N6B6XSBP25` | Yes |
+| single-release Escrow | `CDHAZ2RTE2MDHYQQ7NATF5IVKIFVGLX6FHJ66OPK6MUXBSTRRXFXJ6QB` | Yes |
+
 > Testnet contracts get redeployed periodically. If an address stops working, check the source links above for updated values.
 
 
@@ -169,6 +187,7 @@ Auth format varies per protocol in ways that are not documented anywhere. This t
 | Soroswap | None | No auth required |
 | Phoenix | None | No auth required |
 | Aquarius | None | No auth required |
+| Trustless Work | `x-api-key: your-api-key` | NO "Bearer" prefix. Raw key only. |
 
 ### Etherfuse (correct)
 
@@ -184,6 +203,15 @@ headers: {
 ```typescript
 headers: {
   'Authorization': `Bearer ${process.env.DEFINDEX_API_KEY}`,
+  'Content-Type': 'application/json'
+}
+```
+
+### Trustless Work (correct)
+
+```typescript
+headers: {
+  'x-api-key': process.env.TRUSTLESS_WORK_API_KEY,
   'Content-Type': 'application/json'
 }
 ```
@@ -464,6 +492,26 @@ Use `rpc.Server` (Soroban RPC) as your primary server for all operations — sma
 ### WebAuthn passkeys: rpId must be a domain, not an IP address
 
 WebAuthn rejects IP addresses as the `rpId`. If your browser connects via `127.0.0.1`, explicitly force `rpId` to `'localhost'`. Never use `192.168.x.x` or bare IP addresses for local development.
+
+
+### Trustless Work: Role Trustline Requirement
+
+Each role involved must establish a trustline for the asset being used to create the escrow before the escrow is initialized.
+
+
+### Trustless Work: Restrictions when escrow is funded
+
+The platform role is the only role authorized to modify the escrow at any time. However, once the escrow holds a balance, modifications are restricted exclusively to adding milestones, and no other properties can be updated.
+
+
+### Trustless Work: Trustline Requirement
+
+The trustline address must be the issuer address (starting with 'G'), not the contract ID.
+
+
+### Trustless Work: Dispute Resolver Restriction
+
+The dispute resolver address must be unique.
 
 
 ## Section 6: Known Limitations, and What to Ask Your DevRel Mentor
